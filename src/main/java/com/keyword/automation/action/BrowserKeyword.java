@@ -12,12 +12,26 @@ import com.keyword.automation.base.utils.LogUtils;
  *
  */
 public class BrowserKeyword {
+	/**
+	 * 使用默认浏览器打开指定url
+	 * 
+	 * @param requestUrl
+	 *            请求url地址
+	 */
 	public static void browserOpen(String requestUrl) {
-		BrowserType bType = BrowserType.Chrome;
+		BrowserType bType = BrowserType.valueOf(Constants.DEFAULT_BROWSER);
 		String reqUrl = verifyRequestUrl(requestUrl);
 		Browsers.createDriver(bType).open(reqUrl);
 	}
 
+	/**
+	 * 根据传入浏览器类型打开指定url
+	 * 
+	 * @param browserType
+	 *            浏览器类型
+	 * @param requestUrl
+	 *            请求url地址
+	 */
 	public static void browserOpen(String browserType, String requestUrl) {
 		BrowserType bType = verifyBrowserType(browserType);
 		String reqUrl = verifyRequestUrl(requestUrl);
@@ -49,7 +63,7 @@ public class BrowserKeyword {
 		}
 		return bType;
 	}
-	
+
 	/**
 	 * 格式化请求URL
 	 * 
