@@ -16,4 +16,9 @@ public class Constants {
 	 * IE浏览器driver的存放路径
 	 */
 	public static final String IE_PATH = "/src/static/driver/IEDriverServer.exe";
+	
+	/**
+	 * 默认浏览器类型
+	 */
+	public static final String DEFAULT_BROWSER = "Chrome";
 }
