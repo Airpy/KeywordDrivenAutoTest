@@ -20,7 +20,12 @@ public class Chrome extends WebBrowser {
 	 * 本地初始化Chrome浏览器driver
 	 */
 	public Chrome() {
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + Constants.CHROME_PATH);
+		String os = System.getProperty("os.name");
+		if (os.toLowerCase().startsWith("win")) {
+			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + Constants.CHROME_PATH_WIN);
+		} else {
+			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + Constants.CHROME_PATH_MAC);
+		}
 		this.driver = new ChromeDriver();
 	}
 

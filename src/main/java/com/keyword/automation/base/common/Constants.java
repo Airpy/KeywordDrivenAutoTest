@@ -8,9 +8,14 @@ package com.keyword.automation.base.common;
  */
 public class Constants {
 	/**
-	 * Chrome浏览器driver的存放路径
+	 * Chrome浏览器driver的存放路径(MAC)
 	 */
-	public static final String CHROME_PATH = "/src/static/driver/chromedriver.exe";
+	public static final String CHROME_PATH_MAC = "/src/static/driver/chromedriver";
+	
+	/**
+	 * Chrome浏览器driver的存放路径(WIN)
+	 */
+	public static final String CHROME_PATH_WIN = "/src/static/driver/chromedriver";
 
 	/**
 	 * IE浏览器driver的存放路径
