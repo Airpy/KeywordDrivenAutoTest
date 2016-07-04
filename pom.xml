@@ -5,7 +5,7 @@
 	<artifactId>KeywordDrivenAutoTest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>saastest</name>
+	<name>KeywordDrivenAutoTest</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>2.48.2</version>
+			<version>2.53.1</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
