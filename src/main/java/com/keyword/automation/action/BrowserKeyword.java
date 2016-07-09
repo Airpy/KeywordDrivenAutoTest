@@ -1,5 +1,7 @@
 package com.keyword.automation.action;
 
+import org.openqa.selenium.WebElement;
+
 import com.keyword.automation.base.browser.BrowserType;
 import com.keyword.automation.base.browser.Browsers;
 import com.keyword.automation.base.common.Constants;
@@ -28,7 +30,7 @@ public class BrowserKeyword {
 	 * 根据传入浏览器类型打开指定url
 	 * 
 	 * @param browserType
-	 *            浏览器类型
+	 *            浏览器类型(Chrome/Firefox/IE/Opera/Safari)
 	 * @param requestUrl
 	 *            请求url地址
 	 */
@@ -116,6 +118,10 @@ public class BrowserKeyword {
 	 */
 	public static void switchToFrame(String locator, String locatorValue) {
 		Browsers.getActiveBrowser().switchToFrame(locator, locatorValue);
+	}
+	
+	public static void switchToFrame(WebElement webElement) {
+		Browsers.getActiveBrowser().switchToFrame(webElement);
 	}
 
 	/**

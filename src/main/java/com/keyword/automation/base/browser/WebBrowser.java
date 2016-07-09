@@ -2,8 +2,10 @@ package com.keyword.automation.base.browser;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
@@ -105,6 +107,10 @@ public class WebBrowser {
 
 	}
 
+	public void switchToFrame(WebElement webElement) {
+
+	}
+
 	public void browserBack() {
 		this.driver.navigate().back();
 	}
@@ -135,10 +141,48 @@ public class WebBrowser {
 	}
 
 	public WebElement findElement(String locator, String locatorValue) {
-		return null;
+		WebElement webElement = null;
+		By ByLocator = verifyLocator(locator, locatorValue);
+		try {
+			webElement = this.driver.findElement(ByLocator);
+		} catch (Exception e) {
+		}
+		if (null == webElement) {
+			throw new NoSuchElementException(
+					"no such element by [" + locator + "],please change locator type[xpath,or the others]");
+		}
+		return webElement;
 	}
 
 	public List<WebElement> findElements(String locator, String locatorValue) {
 		return null;
+	}
+
+	private By verifyLocator(String locator, String locatorValue) {
+		if (locator.equalsIgnoreCase("id")) {
+			return By.id(locatorValue);
+		}
+		if (locator.equalsIgnoreCase("name")) {
+			return By.name(locatorValue);
+		}
+		if (locator.equalsIgnoreCase("linkText")) {
+			return By.linkText(locatorValue);
+		}
+		if (locator.equalsIgnoreCase("partialLinkText")) {
+			return By.partialLinkText(locatorValue);
+		}
+		if (locator.equalsIgnoreCase("tagName")) {
+			return By.tagName(locatorValue);
+		}
+		if (locator.equalsIgnoreCase("xpath")) {
+			return By.xpath(locatorValue);
+		}
+		if (locator.equalsIgnoreCase("className")) {
+			return By.className(locatorValue);
+		}
+		if (locator.equalsIgnoreCase("cssSelector")) {
+			return By.cssSelector(locatorValue);
+		}
+		throw new RuntimeException("当前使用过的元素定位符[" + locator + "]不正确,请检查");
 	}
 }
