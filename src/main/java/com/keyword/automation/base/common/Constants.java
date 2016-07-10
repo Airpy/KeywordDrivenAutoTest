@@ -30,5 +30,5 @@ public class Constants {
 	/**
 	 * Cookie存放路径
 	 */
-	public static final String COOKIE_FILE_PATH = "/src/static/cookie";
+	public static final String COOKIE_FILE_PATH = "/src/static/cookie/cookie.txt";
 }

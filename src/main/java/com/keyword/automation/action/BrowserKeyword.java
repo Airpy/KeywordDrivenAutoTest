@@ -1,5 +1,8 @@
 package com.keyword.automation.action;
 
+import java.util.Set;
+
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 
 import com.keyword.automation.base.browser.BrowserType;
@@ -159,7 +162,7 @@ public class BrowserKeyword {
 	}
 
 	/**
-	 * 添加Cookie
+	 * 通过cookieName、cookieValue添加Cookie
 	 * 
 	 * @param cookieName
 	 *            Cookie名称
@@ -168,6 +171,15 @@ public class BrowserKeyword {
 	 */
 	public static void addCookie(String cookieName, String CookieValue) {
 		Browsers.getActiveBrowser().addCookie(cookieName, CookieValue);
+	}
+
+	/**
+	 * 添加cookie
+	 * 
+	 * @param cookie
+	 */
+	public static void addCookie(Cookie cookie) {
+		Browsers.getActiveBrowser().addCookie(cookie);
 	}
 
 	/**
@@ -181,6 +193,15 @@ public class BrowserKeyword {
 	}
 
 	/**
+	 * 
+	 * @param cookie
+	 *            Cookie对象
+	 */
+	public static void deleteCookie(Cookie cookie) {
+		Browsers.getActiveBrowser().deleteCookie(cookie);
+	}
+
+	/**
 	 * 删除所有Cookie
 	 */
 	public static void deleteAllCookies() {
@@ -190,9 +211,13 @@ public class BrowserKeyword {
 	/**
 	 * 获取所有Cookie
 	 * 
-	 * @return
+	 * @return Cookie对象集合
 	 */
-	public static String getAllCookies() {
+	public static Set<Cookie> getAllCookies() {
+		return Browsers.getActiveBrowser().getAllCookies();
+	}
+
+	public static String getAllCookies(Cookie cookie) {
 		return null;
 	}
 

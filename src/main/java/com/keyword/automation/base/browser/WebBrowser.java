@@ -139,13 +139,25 @@ public class WebBrowser {
 		Cookie cookie = new Cookie(cookieName, CookieValue);
 		this.driver.manage().addCookie(cookie);
 	}
+	
+	public void addCookie(Cookie cookie) {
+		this.driver.manage().addCookie(cookie);
+	}
 
 	public void deleteCookieByName(String cookieName) {
 		this.driver.manage().deleteCookieNamed(cookieName);
 	}
 
+	public void deleteCookie(Cookie cookie) {
+		this.driver.manage().deleteCookie(cookie);
+	}
+
 	public void deleteAllCookies() {
 		this.driver.manage().deleteAllCookies();
+	}
+	
+	public Set<Cookie> getAllCookies() {
+		return this.driver.manage().getCookies();
 	}
 
 	public WebElement findElement(String locator, String locatorValue) {
@@ -169,7 +181,7 @@ public class WebBrowser {
 		checkIsElementExists(webElement, locatorValue);
 		return webElement;
 	}
-	
+
 	public List<WebElement> findElements(String locator, String locatorValue) {
 		List<WebElement> webElements = new ArrayList<WebElement>();
 		By ByLocator = verifyLocator(locator, locatorValue);
@@ -191,7 +203,7 @@ public class WebBrowser {
 		checkIsElementExists(webElements, locatorValue);
 		return webElements;
 	}
-	
+
 	private By verifyLocator(String locator, String locatorValue) {
 		if (locator.equalsIgnoreCase("id")) {
 			return By.id(locatorValue);
@@ -221,7 +233,7 @@ public class WebBrowser {
 		this.driver.quit();
 		throw new RuntimeException("当前使用过的元素定位符[" + locator + "]不正确,请检查");
 	}
-	
+
 	private void checkIsElementExists(WebElement webElement, String locator) {
 		if (null == webElement) {
 			this.driver.quit();
@@ -229,7 +241,7 @@ public class WebBrowser {
 					"no such element by [" + locator + "],please change locatorType[xpath,or the others]");
 		}
 	}
-	
+
 	private void checkIsElementExists(List<WebElement> webElements, String locator) {
 		if (webElements.isEmpty()) {
 			this.driver.quit();
