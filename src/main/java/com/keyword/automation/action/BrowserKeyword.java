@@ -39,7 +39,7 @@ public class BrowserKeyword {
 		String reqUrl = verifyRequestUrl(requestUrl);
 		Browsers.createDriver(bType).open(reqUrl);
 	}
-	
+
 	/**
 	 * 获取当前打开标签页Url
 	 * 
@@ -112,14 +112,20 @@ public class BrowserKeyword {
 	 * 通过页面元素切换frame
 	 * 
 	 * @param locator
-	 *            传id/name/linkText等
+	 *            元素定位类型(id/name/linkText/partialLinkText/tagName/xpath/
+	 *            className/cssSelector)
 	 * @param locatorValue
-	 *            元素的值
+	 *            元素定位值
 	 */
 	public static void switchToFrame(String locator, String locatorValue) {
 		Browsers.getActiveBrowser().switchToFrame(locator, locatorValue);
 	}
-	
+
+	/**
+	 * 通过页面元素切换frame
+	 * 
+	 * @param webElement
+	 */
 	public static void switchToFrame(WebElement webElement) {
 		Browsers.getActiveBrowser().switchToFrame(webElement);
 	}
@@ -154,8 +160,11 @@ public class BrowserKeyword {
 
 	/**
 	 * 添加Cookie
-	 * @param cookieName  Cookie名称
-	 * @param CookieValue  Cookie值
+	 * 
+	 * @param cookieName
+	 *            Cookie名称
+	 * @param CookieValue
+	 *            Cookie值
 	 */
 	public static void addCookie(String cookieName, String CookieValue) {
 		Browsers.getActiveBrowser().addCookie(cookieName, CookieValue);

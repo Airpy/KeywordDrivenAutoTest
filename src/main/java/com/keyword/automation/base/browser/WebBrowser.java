@@ -1,5 +1,6 @@
 package com.keyword.automation.base.browser;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -104,11 +105,18 @@ public class WebBrowser {
 	}
 
 	public void switchToFrame(String locator, String locatorValue) {
-
+		WebElement webElement = null;
+		By ByLocator = verifyLocator(locator, locatorValue);
+		try {
+			webElement = this.driver.findElement(ByLocator);
+		} catch (Exception e) {
+		}
+		checkIsElementExists(webElement, locatorValue);
+		this.driver.switchTo().frame(webElement);
 	}
 
 	public void switchToFrame(WebElement webElement) {
-
+		this.driver.switchTo().frame(webElement);
 	}
 
 	public void browserBack() {
@@ -147,17 +155,43 @@ public class WebBrowser {
 			webElement = this.driver.findElement(ByLocator);
 		} catch (Exception e) {
 		}
-		if (null == webElement) {
-			throw new NoSuchElementException(
-					"no such element by [" + locator + "],please change locator type[xpath,or the others]");
-		}
+		checkIsElementExists(webElement, locatorValue);
 		return webElement;
 	}
 
+	public WebElement findElement(WebElement parent, String locator, String locatorValue) {
+		WebElement webElement = null;
+		By ByLocator = verifyLocator(locator, locatorValue);
+		try {
+			webElement = parent.findElement(ByLocator);
+		} catch (Exception e) {
+		}
+		checkIsElementExists(webElement, locatorValue);
+		return webElement;
+	}
+	
 	public List<WebElement> findElements(String locator, String locatorValue) {
-		return null;
+		List<WebElement> webElements = new ArrayList<WebElement>();
+		By ByLocator = verifyLocator(locator, locatorValue);
+		try {
+			webElements = this.driver.findElements(ByLocator);
+		} catch (Exception e) {
+		}
+		checkIsElementExists(webElements, locatorValue);
+		return webElements;
 	}
 
+	public List<WebElement> findElements(WebElement parent, String locator, String locatorValue) {
+		List<WebElement> webElements = new ArrayList<WebElement>();
+		By ByLocator = verifyLocator(locator, locatorValue);
+		try {
+			webElements = parent.findElements(ByLocator);
+		} catch (Exception e) {
+		}
+		checkIsElementExists(webElements, locatorValue);
+		return webElements;
+	}
+	
 	private By verifyLocator(String locator, String locatorValue) {
 		if (locator.equalsIgnoreCase("id")) {
 			return By.id(locatorValue);
@@ -183,6 +217,24 @@ public class WebBrowser {
 		if (locator.equalsIgnoreCase("cssSelector")) {
 			return By.cssSelector(locatorValue);
 		}
+		// 如果传入元素定位类型错误，则关闭浏览器并退出执行
+		this.driver.quit();
 		throw new RuntimeException("当前使用过的元素定位符[" + locator + "]不正确,请检查");
+	}
+	
+	private void checkIsElementExists(WebElement webElement, String locator) {
+		if (null == webElement) {
+			this.driver.quit();
+			throw new NoSuchElementException(
+					"no such element by [" + locator + "],please change locatorType[xpath,or the others]");
+		}
+	}
+	
+	private void checkIsElementExists(List<WebElement> webElements, String locator) {
+		if (webElements.isEmpty()) {
+			this.driver.quit();
+			throw new NoSuchElementException(
+					"no such element by [" + locator + "],please change locatorType[xpath,or the others]");
+		}
 	}
 }
