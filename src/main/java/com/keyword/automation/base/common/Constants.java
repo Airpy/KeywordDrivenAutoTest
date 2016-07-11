@@ -15,7 +15,7 @@ public class Constants {
 	/**
 	 * Chrome浏览器driver的存放路径(WIN)
 	 */
-	public static final String CHROME_PATH_WIN = "/src/static/driver/chromedriver";
+	public static final String CHROME_PATH_WIN = "/src/static/driver/chromedriver.exe";
 
 	/**
 	 * IE浏览器driver的存放路径
