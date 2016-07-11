@@ -17,7 +17,7 @@ import com.keyword.automation.base.common.Constants;
 /**
  * Cookie工具类
  * 
- * @author liuzhenfeng
+ * @author airpy
  *
  */
 public class CookieUtils {
