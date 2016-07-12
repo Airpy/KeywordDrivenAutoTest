@@ -23,8 +23,7 @@ public class FileUtils {
 	 */
 	public static void mkdir(String dir) {
 		try {
-			String tempDir = dir;
-			File dirPath = new File(tempDir);
+			File dirPath = new File(dir);
 			if (!dirPath.exists()) {
 				dirPath.mkdirs();
 			}
@@ -44,15 +43,13 @@ public class FileUtils {
 	 */
 	public static void createNewFile(String fileName, String content) {
 		try {
-			String tempFileName = fileName;
-			File filePath = new File(tempFileName);
+			File filePath = new File(fileName);
 			if (!filePath.exists()) {
 				filePath.createNewFile();
 			}
 			FileWriter fileWriter = new FileWriter(filePath);
 			PrintWriter printWriter = new PrintWriter(fileWriter);
-			String strContent = content;
-			printWriter.println(strContent);
+			printWriter.println(content);
 			printWriter.flush();
 			printWriter.close();
 			fileWriter.close();
@@ -70,9 +67,10 @@ public class FileUtils {
 	 */
 	public static void deleteFile(String fileName) {
 		try {
-			String tempFileName = fileName;
-			File deleteFile = new File(tempFileName);
-			deleteFile.delete();
+			File deleteFile = new File(fileName);
+			if (!deleteFile.exists()) {
+				deleteFile.delete();
+			}
 		} catch (Exception e) {
 			log.error("删除文件[" + fileName + "]操作失败: " + e.getMessage());
 			e.printStackTrace();
