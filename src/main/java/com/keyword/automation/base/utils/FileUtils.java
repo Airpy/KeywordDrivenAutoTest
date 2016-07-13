@@ -43,11 +43,10 @@ public class FileUtils {
 	 */
 	public static void createNewFile(String fileName, String content) {
 		try {
-			File filePath = new File(fileName);
-			if (!filePath.exists()) {
-				filePath.createNewFile();
-			}
-			FileWriter fileWriter = new FileWriter(filePath);
+			File file = new File(fileName);
+			deleteFile(fileName);
+			file.createNewFile();
+			FileWriter fileWriter = new FileWriter(file);
 			PrintWriter printWriter = new PrintWriter(fileWriter);
 			printWriter.println(content);
 			printWriter.flush();
@@ -67,10 +66,12 @@ public class FileUtils {
 	 */
 	public static void deleteFile(String fileName) {
 		try {
-			File deleteFile = new File(fileName);
-			if (!deleteFile.exists()) {
-				deleteFile.delete();
+			File file = new File(fileName);
+			if (!file.exists()) {
+				log.warn("您输入的文件不存在[" + fileName + "]");
+				return;
 			}
+			file.delete();
 		} catch (Exception e) {
 			log.error("删除文件[" + fileName + "]操作失败: " + e.getMessage());
 			e.printStackTrace();
