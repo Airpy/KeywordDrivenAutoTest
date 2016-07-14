@@ -16,19 +16,41 @@ public class FileUtils {
 	private static final Logger log = Logger.getLogger(FileUtils.class);
 
 	/**
-	 * 创建目录(若父目录不存在则一并创建)
+	 * 新建目录(若父目录不存在则一并新建)
 	 * 
 	 * @param dir
 	 *            目录
 	 */
-	public static void mkdir(String dir) {
+	public static void makeDirctory(String dir) {
+		File dirPath = new File(dir);
+		File parentPath = dirPath.getParentFile();
+		if (null == dir || dir.isEmpty() || dirPath.exists()) {
+			log.warn("参数错误或目录已经存在");
+			return;
+		}
 		try {
-			File dirPath = new File(dir);
-			if (!dirPath.exists()) {
-				dirPath.mkdirs();
+			if (null != parentPath && !parentPath.exists()) {
+				parentPath.mkdirs();
 			}
 		} catch (Exception e) {
-			log.error("创建目录[" + dir + "]操作失败: " + e.getMessage());
+			log.error("新建目录[" + dir + "]操作失败: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 新建文件
+	 * 
+	 * @param fileName
+	 *            包含绝对路径的文件名(E:\project\src\123.txt)
+	 */
+	public static void createNewFile(String fileName) {
+		try {
+			File file = new File(fileName);
+			deleteFile(fileName);
+			file.createNewFile();
+		} catch (Exception e) {
+			log.error("新建文件[" + fileName + "]操作失败: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -77,7 +99,7 @@ public class FileUtils {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void deleteAllFile(String path) {
 		File file = new File(path);
 		if (!file.exists()) {
@@ -91,8 +113,8 @@ public class FileUtils {
 		String[] childFiles = file.list();
 		File temp = null;
 		for (String tempChild : childFiles) {
-			//File.separator与系统有关的默认名称分隔符
-            //在UNIX系统上，此字段的值为'/'；在Microsoft Windows系统上，它为 '\'
+			// File.separator与系统有关的默认名称分隔符
+			// 在UNIX系统上，此字段的值为'/'；在Microsoft Windows系统上，它为 '\'
 			if (path.endsWith(File.separator)) {
 				temp = new File(path + tempChild);
 			} else {
@@ -102,12 +124,12 @@ public class FileUtils {
 				temp.delete();
 			}
 			if (temp.isDirectory()) {
-				deleteAllFile(path + "/" + childFiles); 
+				deleteAllFile(path + "/" + childFiles);
 				deleteFolder(path + "/" + childFiles);
 			}
 		}
 	}
-	
+
 	public static void deleteFolder(String folderPath) {
 		try {
 			deleteAllFile(folderPath);
