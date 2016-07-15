@@ -13,6 +13,11 @@ import com.keyword.automation.base.browser.Browsers;
  *
  */
 public class ElementKeyword {
+	// 不允许被初始化
+	private ElementKeyword() {
+
+	}
+
 	/**
 	 * 通过元素定位类型及元素定位值寻找元素
 	 * 

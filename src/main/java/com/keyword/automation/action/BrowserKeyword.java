@@ -17,6 +17,11 @@ import com.keyword.automation.base.utils.LogUtils;
  *
  */
 public class BrowserKeyword {
+	// 不允许被初始化
+	private BrowserKeyword() {
+
+	}
+
 	/**
 	 * 使用默认浏览器打开指定url
 	 * 

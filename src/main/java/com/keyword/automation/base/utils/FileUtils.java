@@ -13,7 +13,52 @@ import org.apache.log4j.Logger;
  *
  */
 public class FileUtils {
+	private FileUtils() {
+
+	}
+
 	private static final Logger log = Logger.getLogger(FileUtils.class);
+
+	/**
+	 * 创建文件(若文件所在目录不存在则一并创建)
+	 * 
+	 * @param fileName
+	 *            包含绝对路径的文件名(E:\project\src\123.txt)
+	 * @return
+	 */
+	public static boolean createNewFile(String fileName) {
+		File file = new File(fileName);
+		if (file.exists()) {
+			log.error("创建文件[" + fileName + "]失败，文件已经存在!");
+			return false;
+		}
+		if (fileName.endsWith(File.separator)) {
+			log.error("创建文件[" + fileName + "]失败，目标文件不能为目录!");
+			return false;
+		}
+		// 判断目标文件所在目录是否存在
+		if (!file.getParentFile().exists()) {
+			log.warn("目标文件所在目录不存在，现在为您自动创建!");
+			if (!file.getParentFile().mkdirs()) {
+				log.error("创建目标文件所在目录失败!");
+				return false;
+			}
+		}
+		// 创建目标文件
+		try {
+			if (file.createNewFile()) {
+				log.info("创建文件[" + fileName + "]成功!");
+				return true;
+			} else {
+				log.error("创建文件[" + fileName + "]失败或该目标文件已经存在!");
+				return false;
+			}
+		} catch (Exception e) {
+			log.error("创建文件[" + fileName + "]失败: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	/**
 	 * 新建目录(若父目录不存在则一并新建)
@@ -38,22 +83,22 @@ public class FileUtils {
 		}
 	}
 
-	/**
-	 * 新建文件
-	 * 
-	 * @param fileName
-	 *            包含绝对路径的文件名(E:\project\src\123.txt)
-	 */
-	public static void createNewFile(String fileName) {
-		try {
-			File file = new File(fileName);
-			deleteFile(fileName);
-			file.createNewFile();
-		} catch (Exception e) {
-			log.error("新建文件[" + fileName + "]操作失败: " + e.getMessage());
-			e.printStackTrace();
-		}
-	}
+	// /**
+	// * 新建文件
+	// *
+	// * @param fileName
+	// * 包含绝对路径的文件名(E:\project\src\123.txt)
+	// */
+	// public static void createNewFile(String fileName) {
+	// try {
+	// File file = new File(fileName);
+	// deleteFile(fileName);
+	// file.createNewFile();
+	// } catch (Exception e) {
+	// log.error("新建文件[" + fileName + "]操作失败: " + e.getMessage());
+	// e.printStackTrace();
+	// }
+	// }
 
 	/**
 	 * 新建文件
@@ -134,7 +179,7 @@ public class FileUtils {
 		try {
 			deleteAllFile(folderPath);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 	}
 }
