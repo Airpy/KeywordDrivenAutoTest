@@ -24,12 +24,17 @@ public class FileUtils {
 	 * 
 	 * @param dir
 	 *            目录(E:\\project\\src\\)
+	 * @return 创建成功返回true，否则返回false
 	 */
 	public static boolean createDirectory(String dirName) {
 		File dirPath = new File(dirName);
-		if (null == dirName || dirName.isEmpty() || dirPath.exists()) {
-			log.warn("创建目录[" + dirName + "]失败，目标目录已经存在或您输入的参数错误!");
+		if (null == dirName || dirName.isEmpty()) {
+			LogUtils.error("您传入的目录名称为空!");
 			return false;
+		}
+		if (dirPath.exists()) {
+			LogUtils.warn("创建目录[" + dirName + "]失败，目标目录已经存在!");
+			return true;
 		}
 		// 如果没有目录分隔符，则加上分隔符
 		if (!dirName.endsWith(File.separator)) {
@@ -37,11 +42,12 @@ public class FileUtils {
 		}
 		// 创建目录
 		try {
+			// 不管父目录是否存在统一创建
 			dirPath.mkdirs();
-			log.info("创建目录[" + dirName + "]成功!");
+			LogUtils.info("创建目录[" + dirName + "]成功!");
 			return true;
 		} catch (Exception e) {
-			log.error("创建目录[" + dirName + "]失败:" + e.getMessage());
+			LogUtils.error("创建目录[" + dirName + "]失败: " + e.getMessage());
 			e.printStackTrace();
 			return false;
 		}
@@ -51,30 +57,35 @@ public class FileUtils {
 	 * 创建文件(若文件所在目录不存在则一并创建)
 	 * 
 	 * @param fileName
-	 *            包含绝对路径的文件名(E:\\project\\src\\123.txt)
-	 * @return
+	 *            包含绝对路径的文件名(E:\project\src\123.txt)
+	 * 
+	 * @return 创建成功返回true，否则返回false
 	 */
-	public static boolean createNewFile(String fileName) {
+	public static boolean createFile(String fileName) {
 		File file = new File(fileName);
+		if (null == fileName || fileName.isEmpty()) {
+			LogUtils.error("您传入的文件名称为空!");
+			return false;
+		}
 		if (file.exists() || file.isDirectory() || fileName.endsWith(File.separator)) {
-			log.error("创建文件[" + fileName + "]失败，目标文件已经存在或您输入的为目录!");
+			LogUtils.error("创建文件[" + fileName + "]失败，目标文件已经存在或您输入的为目录!");
 			return false;
 		}
 		// 判断目标文件所在目录是否存在
 		if (!file.getParentFile().exists()) {
-			log.warn("目标文件所在目录不存在，现在为您自动创建!");
+			LogUtils.warn("目标文件所在目录不存在，现在为您自动创建!");
 			if (!file.getParentFile().mkdirs()) {
-				log.error("创建目标文件所在目录失败!");
+				LogUtils.error("创建目标文件所在目录失败!");
 				return false;
 			}
 		}
 		// 创建目标文件
 		try {
 			file.createNewFile();
-			log.info("创建文件[" + fileName + "]成功!");
+			LogUtils.info("创建文件[" + fileName + "]成功!");
 			return true;
 		} catch (Exception e) {
-			log.error("创建文件[" + fileName + "]失败: " + e.getMessage());
+			LogUtils.error("创建文件[" + fileName + "]失败: " + e.getMessage());
 			e.printStackTrace();
 			return false;
 		}
@@ -88,7 +99,7 @@ public class FileUtils {
 	 * @param content
 	 *            文件内容
 	 */
-	public static void createNewFile(String fileName, String content) {
+	public static void writeFile(String fileName, String content) {
 		try {
 			File file = new File(fileName);
 			deleteFile(fileName);
@@ -111,17 +122,19 @@ public class FileUtils {
 	 * @param fileName
 	 *            包含绝对路径的文件名(E:\project\src\123.txt)
 	 */
-	public static void deleteFile(String fileName) {
+	public static boolean deleteFile(String fileName) {
 		try {
 			File file = new File(fileName);
 			if (!file.exists()) {
-				log.warn("您输入的文件不存在[" + fileName + "]");
-				return;
+				LogUtils.warn("您输入的文件不存在[" + fileName + "]");
+				return false;
 			}
 			file.delete();
+			return true;
 		} catch (Exception e) {
-			log.error("删除文件[" + fileName + "]操作失败: " + e.getMessage());
+			LogUtils.error("删除文件[" + fileName + "]操作失败: " + e.getMessage());
 			e.printStackTrace();
+			return false;
 		}
 	}
 
