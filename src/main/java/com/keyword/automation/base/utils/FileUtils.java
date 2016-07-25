@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -174,6 +173,7 @@ public class FileUtils {
 			}
 			bufferedReader.close();
 			fileReader.close();
+			LogUtils.info("读取文件[" + fileName + "]成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
