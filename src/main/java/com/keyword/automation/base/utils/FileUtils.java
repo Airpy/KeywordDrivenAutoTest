@@ -1,10 +1,15 @@
 package com.keyword.automation.base.utils;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Cookie;
@@ -138,6 +143,41 @@ public class FileUtils {
 		} catch (Exception e) {
 			LogUtils.error("写文件[" + fileName + "]操作失败: " + e.getMessage());
 			e.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("finally")
+	public static Set<Cookie> getAllCookiesFromFile(String fileName) {
+		Cookie cookie = null;
+		Set<Cookie> cookies = new HashSet<Cookie>();
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String line;
+			while (null != (line = bufferedReader.readLine())) {
+				StringTokenizer stringTokenizer = new StringTokenizer(line, ";");
+				while (stringTokenizer.hasMoreTokens()) {
+					String name = stringTokenizer.nextToken();
+					String value = stringTokenizer.nextToken();
+					String domain = stringTokenizer.nextToken();
+					String path = stringTokenizer.nextToken();
+					Date expiry = null;
+					String date;
+					if (!(date = stringTokenizer.nextToken()).equals("null")) {
+						expiry = new Date(date);
+					}
+					Boolean isSecure = new Boolean(stringTokenizer.nextToken()).booleanValue();
+					Boolean isHttpOnly = new Boolean(stringTokenizer.nextToken()).booleanValue();
+					cookie = new Cookie(name, value, domain, path, expiry, isSecure, isHttpOnly);
+					cookies.add(cookie);
+				}
+			}
+			bufferedReader.close();
+			fileReader.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			return cookies;
 		}
 	}
 

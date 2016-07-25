@@ -52,38 +52,7 @@ public class WebCookies {
 	/**
 	 * 从文件中读取cookie加载到WebDriver
 	 */
-	@SuppressWarnings({ "null", "finally" })
 	public static Set<Cookie> getAllCookiesFromFile() {
-		Cookie cookie = null;
-		Set<Cookie> cookies = null;
-		try {
-			FileReader fileReader = new FileReader(cookiePath);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			String line;
-			while (null != (line = bufferedReader.readLine())) {
-				StringTokenizer stringTokenizer = new StringTokenizer(line, ";");
-				while (stringTokenizer.hasMoreTokens()) {
-					String name = stringTokenizer.nextToken();
-					String value = stringTokenizer.nextToken();
-					String domain = stringTokenizer.nextToken();
-					String path = stringTokenizer.nextToken();
-					Date expiry = null;
-					String date;
-					if (!(date = stringTokenizer.nextToken()).equals("null")) {
-						expiry = new Date(date);
-					}
-					Boolean isSecure = new Boolean(stringTokenizer.nextToken()).booleanValue();
-					Boolean isHttpOnly = new Boolean(stringTokenizer.nextToken()).booleanValue();
-					cookie = new Cookie(name, value, domain, path, expiry, isSecure, isHttpOnly);
-					cookies.add(cookie);
-				}
-				bufferedReader.close();
-				fileReader.close();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			return cookies;
-		}
+		return FileUtils.getAllCookiesFromFile(cookiePath);
 	}
 }
