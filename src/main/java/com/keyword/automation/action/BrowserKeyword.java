@@ -1,8 +1,5 @@
 package com.keyword.automation.action;
 
-import java.util.Set;
-
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 
 import com.keyword.automation.base.browser.BrowserType;
@@ -164,111 +161,6 @@ public class BrowserKeyword {
 	 */
 	public static void browserMax() {
 		Browsers.getActiveBrowser().browserMax();
-	}
-
-	/**
-	 * 通过cookieName、cookieValue添加Cookie
-	 * 
-	 * @param cookieName
-	 *            Cookie名称
-	 * @param CookieValue
-	 *            Cookie值
-	 */
-	public static void addCookie(String cookieName, String CookieValue) {
-		Browsers.getActiveBrowser().addCookie(cookieName, CookieValue);
-	}
-
-	/**
-	 * 添加cookie
-	 * 
-	 * @param cookie
-	 */
-	public static void addCookie(Cookie cookie) {
-		Browsers.getActiveBrowser().addCookie(cookie);
-	}
-
-	/**
-	 * 通过Cookie名称删除对应Cookie
-	 * 
-	 * @param cookieName
-	 *            Cookie名称
-	 */
-	public static void deleteCookieByName(String cookieName) {
-		Browsers.getActiveBrowser().deleteCookieByName(cookieName);
-	}
-
-	/**
-	 * 
-	 * @param cookie
-	 *            Cookie对象
-	 */
-	public static void deleteCookie(Cookie cookie) {
-		Browsers.getActiveBrowser().deleteCookie(cookie);
-	}
-
-	/**
-	 * 删除所有Cookie
-	 */
-	public static void deleteAllCookies() {
-		Browsers.getActiveBrowser().deleteAllCookies();
-	}
-
-	/**
-	 * 获取所有Cookie
-	 * 
-	 * @return Cookie对象集合
-	 */
-	public static Set<Cookie> getAllCookies() {
-		return Browsers.getActiveBrowser().getAllCookies();
-	}
-
-	public static String getAllCookies(Cookie cookie) {
-		return null;
-	}
-
-	/**
-	 * 从Cookie文件中获取所有Cookie
-	 * 
-	 * @param cookieFile
-	 *            Cookie文件名称
-	 * @return
-	 */
-	public static String getAllCookies(String cookieFile) {
-		return null;
-	}
-
-	/**
-	 * 根据Cookie名称获取Cookie值
-	 * 
-	 * @param cookieName
-	 *            Cookie名称
-	 * @return
-	 */
-	public static String getCookieByName(String cookieName) {
-		return null;
-	}
-
-	/**
-	 * 从Cookie文件中通过Cookie名称获取Cookie值
-	 * 
-	 * @param cookieFile
-	 *            Cookie文件名称
-	 * @param cookieName
-	 *            Cookie名称
-	 * @return
-	 */
-	public static String getCookieByName(String cookieFile, String cookieName) {
-		return null;
-	}
-
-	/**
-	 * 将所有Cookie写入Cookie文件
-	 * 
-	 * @param CookieFile
-	 *            Cookie文件名称
-	 */
-	public static void writeAllCookiesToFile(String CookieFile) {
-
 	}
 
 	/**

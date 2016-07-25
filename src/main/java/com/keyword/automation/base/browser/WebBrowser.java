@@ -139,7 +139,7 @@ public class WebBrowser {
 		Cookie cookie = new Cookie(cookieName, CookieValue);
 		this.driver.manage().addCookie(cookie);
 	}
-	
+
 	public void addCookie(Cookie cookie) {
 		this.driver.manage().addCookie(cookie);
 	}
@@ -155,9 +155,27 @@ public class WebBrowser {
 	public void deleteAllCookies() {
 		this.driver.manage().deleteAllCookies();
 	}
-	
+
 	public Set<Cookie> getAllCookies() {
 		return this.driver.manage().getCookies();
+	}
+	
+	public String getCookieValueByName(String cookieName) {
+		Cookie cookie = this.driver.manage().getCookieNamed(cookieName);
+		if (null == cookie) {
+			throw new RuntimeException("通过[" + cookieName + "]没有找到对应的cookie值");
+		}else {
+			return cookie.getValue();
+		}
+	}
+	
+	public Cookie getCookieByName(String cookieName) {
+		Cookie cookie = this.driver.manage().getCookieNamed(cookieName);
+		if (null == cookie) {
+			throw new RuntimeException("通过[" + cookieName + "]没有找到对应的cookie值");
+		}else {
+			return cookie;
+		}
 	}
 
 	public WebElement findElement(String locator, String locatorValue) {
@@ -234,6 +252,7 @@ public class WebBrowser {
 		throw new RuntimeException("当前使用过的元素定位符[" + locator + "]不正确,请检查");
 	}
 
+	// 检查元素是否存在
 	private void checkIsElementExists(WebElement webElement, String locator) {
 		if (null == webElement) {
 			this.driver.quit();
@@ -242,6 +261,7 @@ public class WebBrowser {
 		}
 	}
 
+	// 检查元素组是否存在
 	private void checkIsElementExists(List<WebElement> webElements, String locator) {
 		if (webElements.isEmpty()) {
 			this.driver.quit();

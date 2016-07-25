@@ -10,17 +10,17 @@ public class Constants {
 	/**
 	 * Chrome浏览器driver的存放路径(MAC)
 	 */
-	public static final String CHROME_PATH_MAC = "/src/static/driver/chromedriver";
+	public static final String CHROME_PATH_MAC = "/src/main/resources/static/driver/chromedriver";
 
 	/**
 	 * Chrome浏览器driver的存放路径(WIN)
 	 */
-	public static final String CHROME_PATH_WIN = "/src/static/driver/chromedriver.exe";
+	public static final String CHROME_PATH_WIN = "/src/main/resources/static/driver/chromedriver.exe";
 
 	/**
 	 * IE浏览器driver的存放路径
 	 */
-	public static final String IE_PATH = "/src/static/driver/IEDriverServer.exe";
+	public static final String IE_PATH = "/src/main/resources/static/driver/IEDriverServer.exe";
 
 	/**
 	 * 默认浏览器类型
@@ -30,5 +30,5 @@ public class Constants {
 	/**
 	 * Cookie存放路径
 	 */
-	public static final String COOKIE_FILE_PATH = "/src/static/cookie/cookie.txt";
+	public static final String COOKIE_FILE_PATH = "/src/main/resources/static/cookie/cookie.txt";
 }

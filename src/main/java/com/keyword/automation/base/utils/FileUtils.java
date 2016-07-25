@@ -1,10 +1,13 @@
 package com.keyword.automation.base.utils;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Cookie;
 
 /**
  * 文件工具类
@@ -102,16 +105,38 @@ public class FileUtils {
 	public static void writeFile(String fileName, String content) {
 		try {
 			File file = new File(fileName);
-			deleteFile(fileName);
-			file.createNewFile();
-			FileWriter fileWriter = new FileWriter(file);
-			PrintWriter printWriter = new PrintWriter(fileWriter);
-			printWriter.println(content);
-			printWriter.flush();
-			printWriter.close();
+			FileWriter fileWriter = new FileWriter(file, true);
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter.write(content);
+			bufferedWriter.newLine();
+			bufferedWriter.flush();
+			bufferedWriter.close();
 			fileWriter.close();
+			LogUtils.info("写文件[" + fileName + "]操作成功!");
 		} catch (Exception e) {
-			log.error("新建文件[" + fileName + "]操作失败: " + e.getMessage());
+			LogUtils.error("写文件[" + fileName + "]操作失败: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public static void writeFile(String fileName, Set<Cookie> cookies) {
+		try {
+			File file = new File(fileName);
+			FileWriter fileWriter = new FileWriter(file);
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			for (Cookie cookie : cookies) {
+				String strCookie = cookie.getName() + ";" + cookie.getValue() + ";" + cookie.getDomain() + ";"
+						+ cookie.getPath() + ";" + cookie.getExpiry() + ";" + cookie.isSecure() + ";"
+						+ cookie.isHttpOnly();
+				bufferedWriter.write(strCookie);
+				bufferedWriter.newLine();
+			}
+			bufferedWriter.flush();
+			bufferedWriter.close();
+			fileWriter.close();
+			LogUtils.info("写文件[" + fileName + "]操作成功");
+		} catch (Exception e) {
+			LogUtils.error("写文件[" + fileName + "]操作失败: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -130,6 +155,7 @@ public class FileUtils {
 				return false;
 			}
 			file.delete();
+			LogUtils.info("删除文件[" + fileName + "]操作成功!");
 			return true;
 		} catch (Exception e) {
 			LogUtils.error("删除文件[" + fileName + "]操作失败: " + e.getMessage());
