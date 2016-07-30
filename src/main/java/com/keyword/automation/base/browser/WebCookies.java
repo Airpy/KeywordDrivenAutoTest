@@ -1,10 +1,6 @@
 package com.keyword.automation.base.browser;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.Date;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 import org.openqa.selenium.Cookie;
 
@@ -54,5 +50,50 @@ public class WebCookies {
 	 */
 	public static Set<Cookie> getAllCookiesFromFile() {
 		return FileUtils.getAllCookiesFromFile(cookiePath);
+	}
+
+	/**
+	 * 从Cookie文件中根据Cookie名称获取Cookie值
+	 * 
+	 * @param cookieName
+	 *            Cookie名称
+	 * @return Cookie值
+	 */
+	public static String getCookieValueByNameFromFile(String cookieName) {
+		Set<Cookie> cookies = FileUtils.getAllCookiesFromFile(cookiePath);
+		String cookieValue = null;
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase(cookieName)) {
+				cookieValue = cookie.getValue();
+				break;
+			}
+		}
+		if (null != cookieValue) {
+			return cookieValue;
+		} else {
+			throw new RuntimeException("cookie文件中不存在cookie名为[" + cookieName + "]的cookie!");
+		}
+	}
+
+	/**
+	 * 从Cookie文件中根据Cookie名称获取Cookie
+	 * 
+	 * @param cookieName
+	 *            Cookie名称
+	 * @return Cookie对象
+	 */
+	public static Cookie getCookieByNameFromFile(String cookieName) {
+		Set<Cookie> cookies = FileUtils.getAllCookiesFromFile(cookiePath);
+		Cookie tempCookie = null;
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equalsIgnoreCase(cookieName)) {
+				tempCookie = cookie;
+			}
+		}
+		if (null != tempCookie) {
+			return tempCookie;
+		} else {
+			throw new RuntimeException("cookie文件中不存在cookie名为[" + cookieName + "]的cookie!");
+		}
 	}
 }

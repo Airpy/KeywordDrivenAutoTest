@@ -127,27 +127,24 @@ public class CookieKeyword {
 	}
 
 	/**
-	 * 根据Cookie名称获取Cookie值
+	 * 从Cookie文件中根据Cookie名称获取Cookie值
 	 * 
 	 * @param cookieName
 	 *            Cookie名称
-	 * @return
+	 * @return cookie值
 	 */
-	public static String getCookieByNameFromFile(String cookieName) {
-		return null;
+	public static String getCookieValueByNameFromFile(String cookieName) {
+		return WebCookies.getCookieValueByNameFromFile(cookieName);
 	}
 
 	/**
-	 * 从Cookie文件中通过Cookie名称获取Cookie值
+	 * 从Cookie文件中根据Cookie名称获取Cookie
 	 * 
-	 * @param cookieFile
-	 *            Cookie文件名称
 	 * @param cookieName
-	 *            Cookie名称
-	 * @return
+	 *            cookie名称
+	 * @return cookie对象
 	 */
-	public static String getCookieByNameFromFile(String cookieFile, String cookieName) {
-		return null;
+	public static Cookie getCookieByNameFromFile(String cookieName) {
+		return WebCookies.getCookieByNameFromFile(cookieName);
 	}
-
 }
