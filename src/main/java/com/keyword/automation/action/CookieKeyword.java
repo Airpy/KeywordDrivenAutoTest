@@ -14,6 +14,11 @@ import com.keyword.automation.base.browser.WebCookies;
  *
  */
 public class CookieKeyword {
+	// 不允许被初始化
+	private CookieKeyword() {
+
+	}
+
 	/**
 	 * 通过cookieName、cookieValue添加Cookie
 	 * 
@@ -94,7 +99,7 @@ public class CookieKeyword {
 	}
 
 	/**
-	 * 将制定cookie写入cookie文件
+	 * 将指定cookie写入cookie文件
 	 * 
 	 * @param cookie
 	 *            cookie文件路径

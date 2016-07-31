@@ -31,4 +31,9 @@ public class Constants {
 	 * Cookie存放路径
 	 */
 	public static final String COOKIE_FILE_PATH = "/src/main/resources/static/cookie/cookie.txt";
+
+	/**
+	 * 加载页面元素超时时间(秒)
+	 */
+	public static final int TIMEOUT_SECONDS = 30;
 }

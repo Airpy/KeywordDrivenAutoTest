@@ -88,6 +88,7 @@ public class WebCookies {
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equalsIgnoreCase(cookieName)) {
 				tempCookie = cookie;
+				break;
 			}
 		}
 		if (null != tempCookie) {
