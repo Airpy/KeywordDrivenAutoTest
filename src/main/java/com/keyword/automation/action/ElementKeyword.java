@@ -45,6 +45,39 @@ public class ElementKeyword {
 	}
 
 	/**
+	 * 通过父元素定位类型及元素定位值及子元素定位类型及元素定位值寻找元素
+	 * 
+	 * @param locator
+	 *            父元素定位类型(id/name/linkText/partialLinkText/tagName/xpath/
+	 *            className/cssSelector)
+	 * @param locatorValue
+	 *            父元素定位值
+	 * @param subLocator
+	 *            子元素定位类型(id/name/linkText/partialLinkText/tagName/xpath/
+	 *            className/cssSelector)
+	 * @param subLocatorValue
+	 *            子元素定位值
+	 * @return WebElement
+	 */
+	public static WebElement findElement(String locator, String locatorValue, String subLocator,
+			String subLocatorValue) {
+		return Browsers.getActiveBrowser().findElement(locator, locatorValue, subLocator, subLocatorValue);
+	}
+
+	/**
+	 * 通过父元素定位及子元素定位寻找元素
+	 * 
+	 * @param locator
+	 *            父元素定位
+	 * @param subLocator
+	 *            子元素定位
+	 * @return WebElement
+	 */
+	public static WebElement findElement(By locator, By subLocator) {
+		return Browsers.getActiveBrowser().findElement(locator, subLocator);
+	}
+
+	/**
 	 * 通过父元素WebElement寻找子元素
 	 * 
 	 * @param parent
