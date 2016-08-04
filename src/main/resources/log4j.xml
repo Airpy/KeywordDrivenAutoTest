@@ -2,64 +2,64 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n" />
-		</layout>
-	</appender>
-	
-	<appender name="INFO" class="org.apache.log4j.ConsoleAppender">
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%-4p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n" />
-		</layout>
-	</appender>
-	
-	<appender name="DEBUG" class="org.apache.log4j.ConsoleAppender">
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n" />
-		</layout>
-	</appender>
-	
-	
-	<appender name="ERROR" class="org.apache.log4j.ConsoleAppender">
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n" />
-		</layout>
-	</appender>
-	
-	<appender name="myFile" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="/Users/liuzhenfeng/JavaProjects/workspace/AutoProject/src/logs/output.log" />
-        <param name="Append" value="true" />
-        <param name="MaxBackupIndex" value="10" />
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] - [ %p ]  %m%n" />
+            <param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="INFO" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-4p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="DEBUG" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n"/>
         </layout>
     </appender>
 
 
-	<logger name="org.apache.commons.httpclient" additivity="false">
-	    <level value="INFO" />
-		<appender-ref ref="INFO" />
-	</logger>
+    <appender name="ERROR" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n"/>
+        </layout>
+    </appender>
 
-	<logger name="httpclient.wire" additivity="false">
-	    <level value="INFO" />
-		<appender-ref ref="INFO" />
-	</logger>
-	
-	<logger name="org.apache.http.wire" additivity="false">
-	    <level value="INFO" />
-		<appender-ref ref="INFO" />
-	</logger>
-	
-	<logger name="org.apache.http" additivity="false">
-	    <level value="INFO" />
-		<appender-ref ref="INFO" />
-	</logger>
+    <appender name="myFile" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/Users/liuzhenfeng/JavaProjects/workspace/AutoProject/src/logs/output.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxBackupIndex" value="10"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] - [ %p ]  %m%n"/>
+        </layout>
+    </appender>
 
-	<root>
-		<priority value="INFO" />
-		<appender-ref ref="myFile"/>
-		<appender-ref ref="INFO" />
-	</root>
+
+    <logger name="org.apache.commons.httpclient" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="INFO"/>
+    </logger>
+
+    <logger name="httpclient.wire" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="INFO"/>
+    </logger>
+
+    <logger name="org.apache.http.wire" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="INFO"/>
+    </logger>
+
+    <logger name="org.apache.http" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="INFO"/>
+    </logger>
+
+    <root>
+        <priority value="INFO"/>
+        <appender-ref ref="myFile"/>
+        <appender-ref ref="INFO"/>
+    </root>
 </log4j:configuration>
