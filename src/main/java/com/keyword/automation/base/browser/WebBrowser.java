@@ -279,6 +279,30 @@ public class WebBrowser {
         return webElements;
     }
 
+    public List<WebElement> findElements(String locator, String locatorValue, String subLocator, String subLocatorValue) {
+        List<WebElement> webElements = new ArrayList<WebElement>();
+        By ByLocator = verifyLocator(locator, locatorValue);
+        By BySubLocator = verifyLocator(subLocator, subLocatorValue);
+        try {
+            // 一直等到页面元素可见及长、宽大于0即返回该元素组
+            webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ByLocator, BySubLocator));
+        } catch (Exception e) {
+        }
+        checkIsElementExists(webElements, locatorValue);
+        return webElements;
+    }
+
+    public List<WebElement> findElements(By ByLocator, By BySubLocator) {
+        List<WebElement> webElements = new ArrayList<WebElement>();
+        try {
+            // 一直等到页面元素可见及长、宽大于0即返回该元素组
+            webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ByLocator, BySubLocator));
+        } catch (Exception e) {
+        }
+        checkIsElementExists(webElements);
+        return webElements;
+    }
+
     public List<WebElement> findElements(WebElement parent, By by) {
         List<WebElement> webElements = new ArrayList<WebElement>();
         try {
