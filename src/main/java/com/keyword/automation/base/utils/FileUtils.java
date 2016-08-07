@@ -33,7 +33,7 @@ public class FileUtils {
      */
     public static boolean createDirectory(String dirName) {
         File dirPath = new File(dirName);
-        if (dirName.equals("") || dirName.isEmpty()) {
+        if ("".equals(dirName) || dirName.trim().length() <= 0) {
             LogUtils.error("您传入的目录名称为空!");
             return false;
         }
@@ -66,7 +66,7 @@ public class FileUtils {
      */
     public static boolean createFile(String fileName) {
         File file = new File(fileName);
-        if (fileName.equals("") || fileName.isEmpty()) {
+        if ("".equals(fileName) || fileName.trim().length() <= 0) {
             LogUtils.error("您传入的文件名称为空!");
             return false;
         }
