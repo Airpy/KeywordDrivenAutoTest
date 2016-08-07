@@ -159,7 +159,7 @@ public class BrowserKeyword {
      * 验证传入浏览器类型
      *
      * @param browserType 浏览器类型
-     * @return
+     * @return 浏览器类型
      */
     private static BrowserType verifyBrowserType(String browserType) {
         BrowserType bType;
@@ -184,7 +184,7 @@ public class BrowserKeyword {
      * 格式化请求URL
      *
      * @param requestUrl 请求的url
-     * @return
+     * @return 格式化后的请求url
      */
     private static String verifyRequestUrl(String requestUrl) {
         String reqUrl;

@@ -160,4 +160,129 @@ public class ElementKeyword {
     public static List<WebElement> findElements(WebElement parent, String locator, String locatorValue) {
         return Browsers.getActiveBrowser().findElements(parent, locator, locatorValue);
     }
+
+    /**
+     * 点击页面元素
+     *
+     * @param webElement 页面元素
+     */
+    public static void clickElement(WebElement webElement) {
+        if (checkElementDisplayedAndEnabled(webElement)) {
+            webElement.click();
+        }
+    }
+
+    /**
+     * 通过元素定位寻找元素后点击该元素
+     *
+     * @param by 元素定位方式By(By.id(xx)/By.name(xx)等)
+     */
+    public static void clickElement(By by) {
+        WebElement webElement = ElementKeyword.findElement(by);
+        if (checkElementDisplayedAndEnabled(webElement)) {
+            webElement.click();
+        }
+    }
+
+    /**
+     * 通过元素定位类型及元素定位值寻找元素
+     *
+     * @param locator      元素定位类型(id/name/linkText/partialLinkText/tagName/xpath/className/cssSelector)
+     * @param locatorValue 元素定位值
+     */
+    public static void clickElement(String locator, String locatorValue) {
+        WebElement webElement = ElementKeyword.findElement(locator, locatorValue);
+        if (checkElementDisplayedAndEnabled(webElement)) {
+            webElement.click();
+        }
+    }
+
+    /**
+     * 提交指定元素所在的Form
+     *
+     * @param webElement 页面元素
+     */
+    public static void submitForm(WebElement webElement) {
+        if (checkElementDisplayedAndEnabled(webElement)) {
+            webElement.submit();
+        }
+    }
+
+    /**
+     * 提交指定元素所在的Form
+     *
+     * @param by 元素定位方式By(By.id(xx)/By.name(xx)等)
+     */
+    public static void submitForm(By by) {
+        WebElement webElement = ElementKeyword.findElement(by);
+        if (checkElementDisplayedAndEnabled(webElement)) {
+            webElement.submit();
+        }
+    }
+
+    /**
+     * 提交指定元素所在的Form
+     *
+     * @param locator      元素定位类型(id/name/linkText/partialLinkText/tagName/xpath/className/cssSelector)
+     * @param locatorValue 元素定位值
+     */
+    public static void submitForm(String locator, String locatorValue) {
+        WebElement webElement = ElementKeyword.findElement(locator, locatorValue);
+        if (checkElementDisplayedAndEnabled(webElement)) {
+            webElement.submit();
+        }
+    }
+
+    /**
+     * 在指定元素文本框中输入内容
+     *
+     * @param webElement 指定元素
+     * @param inputKeys  输入的内容
+     */
+    public static void sendKeys(WebElement webElement, String inputKeys) {
+        if (checkElementDisplayedAndEnabled(webElement)) {
+            webElement.sendKeys(inputKeys);
+        }
+    }
+
+    /**
+     * 在指定元素文本框中输入内容
+     *
+     * @param by        元素定位方式By(By.id(xx)/By.name(xx)等)
+     * @param inputKeys 输入的内容
+     */
+    public static void sendKeys(By by, String inputKeys) {
+        WebElement webElement = ElementKeyword.findElement(by);
+        if (checkElementDisplayedAndEnabled(webElement)) {
+            webElement.sendKeys(inputKeys);
+        }
+    }
+
+    /**
+     * 在指定元素文本框中输入内容
+     *
+     * @param locator      元素定位类型(id/name/linkText/partialLinkText/tagName/xpath/className/cssSelector)
+     * @param locatorValue 元素定位值
+     * @param inputKeys    输入的内容
+     */
+    public static void sendKeys(String locator, String locatorValue, String inputKeys) {
+        WebElement webElement = ElementKeyword.findElement(locator, locatorValue);
+        if (checkElementDisplayedAndEnabled(webElement)) {
+            webElement.sendKeys(inputKeys);
+        }
+    }
+
+    /**
+     * 判断元素是否可见或可点击
+     *
+     * @param webElement 元素WebElement
+     * @return 可见及可点击返回True, 否则返回false
+     */
+    private static boolean checkElementDisplayedAndEnabled(WebElement webElement) {
+        if (webElement.isDisplayed() && webElement.isEnabled()) {
+            return true;
+        } else {
+            throw new RuntimeException("元素没有找到,点击操作失败.");
+        }
+    }
 }
