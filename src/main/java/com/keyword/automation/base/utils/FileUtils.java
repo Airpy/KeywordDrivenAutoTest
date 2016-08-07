@@ -28,12 +28,12 @@ public class FileUtils {
     /**
      * 新建目录(若父目录不存在则一并新建)
      *
-     * @param dir 目录(E:\\project\\src\\)
+     * @param dirName 目录(E:\\project\\src\\)
      * @return 创建成功返回true，否则返回false
      */
     public static boolean createDirectory(String dirName) {
         File dirPath = new File(dirName);
-        if (null == dirName || dirName.isEmpty()) {
+        if (dirName.equals("") || dirName.isEmpty()) {
             LogUtils.error("您传入的目录名称为空!");
             return false;
         }
@@ -66,7 +66,7 @@ public class FileUtils {
      */
     public static boolean createFile(String fileName) {
         File file = new File(fileName);
-        if (null == fileName || fileName.isEmpty()) {
+        if (fileName.equals("") || fileName.isEmpty()) {
             LogUtils.error("您传入的文件名称为空!");
             return false;
         }
