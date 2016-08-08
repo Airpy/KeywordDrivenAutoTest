@@ -7,6 +7,8 @@ import com.keyword.automation.base.browser.Browsers;
 import com.keyword.automation.base.common.Constants;
 import com.keyword.automation.base.utils.LogUtils;
 
+import java.net.URL;
+
 /**
  * 封装浏览器操作关键字
  *
@@ -99,12 +101,35 @@ public class BrowserKeyword {
     }
 
     /**
+     * 切换到当前页面顶级frame或者window
+     */
+    public static void switchToDefaultFrameOrWindow() {
+        Browsers.getActiveBrowser().switchToDefaultFrame();
+    }
+
+    /**
+     * 根据frame的索引切换
+     *
+     * @param index frame索引
+     */
+    public static void switchToFrame(int index) {
+        Browsers.getActiveBrowser().switchToFrame(index);
+    }
+
+    /**
      * 根据frame的id或name切换
      *
      * @param obj frame的id或name
      */
     public static void switchToFrame(Object obj) {
         Browsers.getActiveBrowser().switchToFrame(obj);
+    }
+
+    /**
+     * 切换到父frame
+     */
+    public static void switchToParentFrame() {
+        Browsers.getActiveBrowser().switchToParentFrame();
     }
 
     /**
@@ -139,6 +164,24 @@ public class BrowserKeyword {
      */
     public static void browserForward() {
         Browsers.getActiveBrowser().browserForward();
+    }
+
+    /**
+     * 浏览器到指定URL导航
+     *
+     * @param requestUrl 指定URL
+     */
+    public static void BrowserTo(String requestUrl) {
+        Browsers.getActiveBrowser().BrowserTo(requestUrl);
+    }
+
+    /**
+     * 浏览器到指定URL导航
+     *
+     * @param requestUrl 指定URL
+     */
+    public static void BrowserTo(URL requestUrl) {
+        Browsers.getActiveBrowser().BrowserTo(requestUrl);
     }
 
     /**

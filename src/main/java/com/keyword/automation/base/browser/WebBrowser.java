@@ -1,5 +1,6 @@
 package com.keyword.automation.base.browser;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -7,11 +8,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.NoSuchWindowException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -100,6 +97,14 @@ public class WebBrowser {
         throw new NoSuchWindowException("Window <Title:" + windowTitle + "> is not exist in browser.");
     }
 
+    public void switchToDefaultFrame() {
+        this.driver.switchTo().defaultContent();
+    }
+
+    public void switchToFrame(int index) {
+        this.driver.switchTo().frame(index);
+    }
+
     public void switchToFrame(Object obj) {
         if (obj instanceof String) {
             this.driver.switchTo().frame(obj.toString());
@@ -123,12 +128,24 @@ public class WebBrowser {
         this.driver.switchTo().frame(webElement);
     }
 
+    public void switchToParentFrame() {
+        this.driver.switchTo().parentFrame();
+    }
+
     public void browserBack() {
         this.driver.navigate().back();
     }
 
     public void browserForward() {
         this.driver.navigate().forward();
+    }
+
+    public void BrowserTo(String requestUrl) {
+        this.driver.navigate().to(requestUrl);
+    }
+
+    public void BrowserTo(URL requestUrl) {
+        this.driver.navigate().to(requestUrl);
     }
 
     public void browserRefresh() {
@@ -327,6 +344,10 @@ public class WebBrowser {
         return webElements;
     }
 
+    public void switchToActiveElement() {
+        this.driver.switchTo().activeElement();
+    }
+
     private By verifyLocator(String locator, String locatorValue) {
         if (locator.equalsIgnoreCase("id")) {
             return By.id(locatorValue);
@@ -433,5 +454,17 @@ public class WebBrowser {
      */
     public WebDriverWait getWebDriverWait(int timeoutSeconds, int sleepInMillis) {
         return new WebDriverWait(this.driver, timeoutSeconds, sleepInMillis);
+    }
+
+    public Alert switchToAlert() {
+        return this.driver.switchTo().alert();
+    }
+
+    public void acceptAlert(Alert alert) {
+        alert.accept();
+    }
+
+    public void dismissAlert(Alert alert) {
+        alert.dismiss();
     }
 }
