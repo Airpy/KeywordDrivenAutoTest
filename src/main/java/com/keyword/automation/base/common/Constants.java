@@ -35,4 +35,19 @@ public class Constants {
      * 加载页面元素超时时间(秒)
      */
     public static final int TIMEOUT_SECONDS = 30;
+
+    /**
+     * 测试环境地址
+     */
+    public static final String TEST_URL = "https://www.zhoupu123.com/saas/tologin";
+
+    /**
+     * 测试环境登录用户名
+     */
+    public static final String TEST_USERNAME = "18010001001";
+
+    /**
+     * 测试环境登录用户密码
+     */
+    public static final String TEST_PASSWORD = "aA111111";
 }

@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import com.keyword.automation.action.ElementKeyword;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -23,6 +24,10 @@ import com.keyword.automation.base.utils.LogUtils;
  */
 public class WebBrowser {
     protected WebDriver driver;
+    private static final String mouseHoverjs = "var evObj = document.createEvent('MouseEvents');" +
+            "evObj.initMouseEvent(\"mouseover\",true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, " +
+            "null);" +
+            "arguments[0].dispatchEvent(evObj);";
 
     public WebDriver getDriver() {
         return driver;
@@ -199,6 +204,17 @@ public class WebBrowser {
         }
     }
 
+    public WebElement findBody() {
+        WebElement webElement = null;
+        try {
+            // 一直等到页面元素可见及长、宽大于0即返回该元素
+            webElement = getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//body")));
+        } catch (Exception e) {
+        }
+        checkIsElementExists(webElement);
+        return webElement;
+    }
+
     public WebElement findElement(final By by) {
         WebElement webElement = null;
         try {
@@ -296,13 +312,15 @@ public class WebBrowser {
         return webElements;
     }
 
-    public List<WebElement> findElements(String locator, String locatorValue, String subLocator, String subLocatorValue) {
+    public List<WebElement> findElements(String locator, String locatorValue, String subLocator, String
+            subLocatorValue) {
         List<WebElement> webElements = new ArrayList<WebElement>();
         By ByLocator = verifyLocator(locator, locatorValue);
         By BySubLocator = verifyLocator(subLocator, subLocatorValue);
         try {
             // 一直等到页面元素可见及长、宽大于0即返回该元素组
-            webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ByLocator, BySubLocator));
+            webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ByLocator,
+                    BySubLocator));
         } catch (Exception e) {
         }
         checkIsElementExists(webElements, locatorValue);
@@ -313,7 +331,8 @@ public class WebBrowser {
         List<WebElement> webElements = new ArrayList<WebElement>();
         try {
             // 一直等到页面元素可见及长、宽大于0即返回该元素组
-            webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ByLocator, BySubLocator));
+            webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ByLocator,
+                    BySubLocator));
         } catch (Exception e) {
         }
         checkIsElementExists(webElements);
@@ -346,6 +365,79 @@ public class WebBrowser {
 
     public void switchToActiveElement() {
         this.driver.switchTo().activeElement();
+    }
+
+    // 等待30s，每0.5s检测1次，当元素存在后停止检测
+    public FluentWait<WebDriver> getFluentWait() {
+        return new FluentWait<WebDriver>(this.driver)
+                .withTimeout(Constants.TIMEOUT_SECONDS, TimeUnit.MILLISECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class);
+    }
+
+    // 等待timeoutSeconds(通过传参)，每0.5s检测1次，当元素存在后停止检测
+    public FluentWait<WebDriver> getFluentWait(int timeoutSeconds) {
+        return new FluentWait<WebDriver>(this.driver)
+                .withTimeout(timeoutSeconds, TimeUnit.MILLISECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class);
+    }
+
+    /**
+     * 定义页面等待超时时间(常量定义最大超时时间)
+     *
+     * @return WebDriverWait
+     */
+    public WebDriverWait getWebDriverWait() {
+        return new WebDriverWait(this.driver, Constants.TIMEOUT_SECONDS);
+    }
+
+    /**
+     * 定义页面等待超时时间
+     *
+     * @param timeoutSeconds 自定义最大超时时间
+     * @return WebDriverWait
+     */
+    public WebDriverWait getWebDriverWait(int timeoutSeconds) {
+        return new WebDriverWait(this.driver, timeoutSeconds);
+    }
+
+    /**
+     * 定义页面等待超时时间
+     *
+     * @param timeoutSeconds 自定义最大超时时间
+     * @param sleepInMillis  循环寻找元素时的睡眠时间(毫秒)
+     * @return WebDriverWait
+     */
+    public WebDriverWait getWebDriverWait(int timeoutSeconds, int sleepInMillis) {
+        return new WebDriverWait(this.driver, timeoutSeconds, sleepInMillis);
+    }
+
+    public Alert switchToAlert() {
+        return this.driver.switchTo().alert();
+    }
+
+    public void acceptAlert(Alert alert) {
+        alert.accept();
+    }
+
+    public void dismissAlert(Alert alert) {
+        alert.dismiss();
+    }
+
+    public void moveToElement(WebElement webElement) {
+        JavascriptExecutor js = (JavascriptExecutor) this.driver;
+        js.executeScript(mouseHoverjs, webElement);
+    }
+
+    public void moveToElement(By by) {
+        WebElement webElement = ElementKeyword.findElement(by);
+        JavascriptExecutor js = (JavascriptExecutor) this.driver;
+        js.executeScript(mouseHoverjs, webElement);
+    }
+
+    public void moveToElement(String locator, String locatorValue) {
+        WebElement webElement = ElementKeyword.findElement(locator, locatorValue);
+        JavascriptExecutor js = (JavascriptExecutor) this.driver;
+        js.executeScript(mouseHoverjs, webElement);
     }
 
     private By verifyLocator(String locator, String locatorValue) {
@@ -408,63 +500,5 @@ public class WebBrowser {
             this.driver.quit();
             throw new NoSuchElementException("no such element, please change locatorType[xpath,or the others]");
         }
-    }
-
-    // 等待30s，每0.5s检测1次，当元素存在后停止检测
-    public FluentWait<WebDriver> getFluentWait() {
-        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(this.driver)
-                .withTimeout(Constants.TIMEOUT_SECONDS, TimeUnit.MILLISECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
-                .ignoring(NoSuchElementException.class);
-        return wait;
-    }
-
-    // 等待timeoutSeconds(通过传参)，每0.5s检测1次，当元素存在后停止检测
-    public FluentWait<WebDriver> getFluentWait(int timeoutSeconds) {
-        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(this.driver)
-                .withTimeout(timeoutSeconds, TimeUnit.MILLISECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
-                .ignoring(NoSuchElementException.class);
-        return wait;
-    }
-
-    /**
-     * 定义页面等待超时时间(常量定义最大超时时间)
-     *
-     * @return WebDriverWait
-     */
-    public WebDriverWait getWebDriverWait() {
-        return new WebDriverWait(this.driver, Constants.TIMEOUT_SECONDS);
-    }
-
-    /**
-     * 定义页面等待超时时间
-     *
-     * @param timeoutSeconds 自定义最大超时时间
-     * @return WebDriverWait
-     */
-    public WebDriverWait getWebDriverWait(int timeoutSeconds) {
-        return new WebDriverWait(this.driver, timeoutSeconds);
-    }
-
-    /**
-     * 定义页面等待超时时间
-     *
-     * @param timeoutSeconds 自定义最大超时时间
-     * @param sleepInMillis  循环寻找元素时的睡眠时间(毫秒)
-     * @return WebDriverWait
-     */
-    public WebDriverWait getWebDriverWait(int timeoutSeconds, int sleepInMillis) {
-        return new WebDriverWait(this.driver, timeoutSeconds, sleepInMillis);
-    }
-
-    public Alert switchToAlert() {
-        return this.driver.switchTo().alert();
-    }
-
-    public void acceptAlert(Alert alert) {
-        alert.accept();
-    }
-
-    public void dismissAlert(Alert alert) {
-        alert.dismiss();
     }
 }

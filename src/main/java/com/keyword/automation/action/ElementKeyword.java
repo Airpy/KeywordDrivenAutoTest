@@ -19,6 +19,15 @@ public class ElementKeyword {
     }
 
     /**
+     * 获取页面Body元素
+     *
+     * @return 页面Body元素
+     */
+    public static WebElement findBody() {
+        return Browsers.getActiveBrowser().findBody();
+    }
+
+    /**
      * 通过元素定位寻找元素
      *
      * @param by 元素定位方式By(By.id(xx)/By.name(xx)等)
@@ -122,7 +131,8 @@ public class ElementKeyword {
      * @param subLocatorValue 子元素定位值
      * @return WebElement组
      */
-    public static List<WebElement> findElements(String locator, String locatorValue, String subLocator, String subLocatorValue) {
+    public static List<WebElement> findElements(String locator, String locatorValue, String subLocator, String
+            subLocatorValue) {
         return Browsers.getActiveBrowser().findElements(locator, locatorValue, subLocator, subLocatorValue);
     }
 
@@ -247,6 +257,7 @@ public class ElementKeyword {
      * @param inputKeys  输入的内容
      */
     public static void sendKeys(WebElement webElement, String inputKeys) {
+        webElement.clear();
         if (checkElementDisplayedAndEnabled(webElement)) {
             webElement.sendKeys(inputKeys);
         }
@@ -260,6 +271,7 @@ public class ElementKeyword {
      */
     public static void sendKeys(By by, String inputKeys) {
         WebElement webElement = ElementKeyword.findElement(by);
+        webElement.clear();
         if (checkElementDisplayedAndEnabled(webElement)) {
             webElement.sendKeys(inputKeys);
         }
@@ -274,6 +286,7 @@ public class ElementKeyword {
      */
     public static void sendKeys(String locator, String locatorValue, String inputKeys) {
         WebElement webElement = ElementKeyword.findElement(locator, locatorValue);
+        webElement.clear();
         if (checkElementDisplayedAndEnabled(webElement)) {
             webElement.sendKeys(inputKeys);
         }
@@ -715,6 +728,34 @@ public class ElementKeyword {
      */
     public static void dismissAlert(Alert alert) {
         Browsers.getActiveBrowser().dismissAlert(alert);
+    }
+
+    /**
+     * 将鼠标悬停到指定元素上
+     *
+     * @param webElement 指定页面元素
+     */
+    public static void moveToElement(WebElement webElement) {
+        Browsers.getActiveBrowser().moveToElement(webElement);
+    }
+
+    /**
+     * 将鼠标悬停到指定元素上
+     *
+     * @param by 元素定位方式By(By.id(xx)/By.name(xx)等)
+     */
+    public static void moveToElement(By by) {
+        Browsers.getActiveBrowser().moveToElement(by);
+    }
+
+    /**
+     * 将鼠标悬停到指定元素上
+     *
+     * @param locator      元素定位类型(id/name/linkText/partialLinkText/tagName/xpath/className/cssSelector)
+     * @param locatorValue 元素定位值
+     */
+    public static void moveToElement(String locator, String locatorValue) {
+        Browsers.getActiveBrowser().moveToElement(locator, locatorValue);
     }
 
     /**
