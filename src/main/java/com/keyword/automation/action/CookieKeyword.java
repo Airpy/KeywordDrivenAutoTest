@@ -10,7 +10,7 @@ import com.keyword.automation.base.browser.WebCookies;
 /**
  * 封装Cookie操作关键字
  *
- * @author airpy
+ * @author Amio_
  */
 public class CookieKeyword {
     // 不允许被初始化

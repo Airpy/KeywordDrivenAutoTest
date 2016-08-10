@@ -10,11 +10,11 @@ import com.keyword.automation.base.utils.FileUtils;
 /**
  * Cookie关键字实现类
  *
- * @author airpy
+ * @author Amio_
  */
 public class WebCookies {
     // 拼装cookie文件绝对路径
-    public static final String cookiePath = System.getProperty("user.dir") + Constants.COOKIE_FILE_PATH;
+    public static final String cookiePath = System.getProperty("doc.dir") + Constants.COOKIE_FILE_PATH;
 
     /**
      * 把cookie追加写入cookie文件

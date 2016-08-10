@@ -12,7 +12,7 @@ import com.keyword.automation.base.common.Constants;
 /**
  * Chrome Webdriver生成器
  *
- * @author airpy
+ * @author Amio_
  */
 public class Chrome extends WebBrowser {
     /**

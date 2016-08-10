@@ -3,7 +3,7 @@ package com.keyword.automation.base.utils;
 import org.apache.log4j.Logger;
 
 /**
- * @author airpy
+ * @author Amio_
  * @ClassName: LogUtils
  * @DESCR: 对log4j的 Logger 进行封装，使不级别的日志，记录在相应的文件<br/>
  * 在需要要使的代码中直接写：<br/>

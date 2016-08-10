@@ -3,7 +3,7 @@ package com.keyword.automation.base.common;
 /**
  * 系统常量类
  *
- * @author airpy
+ * @author Amio_
  */
 public class Constants {
     /**

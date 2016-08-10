@@ -13,7 +13,7 @@ import com.keyword.automation.base.common.Constants;
 /**
  * Internet Explorer WebDriver生成器
  *
- * @author airpy
+ * @author Amio_
  */
 public class InternetExplorer extends WebBrowser {
     /**

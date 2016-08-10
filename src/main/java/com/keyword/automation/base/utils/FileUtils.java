@@ -16,7 +16,7 @@ import org.openqa.selenium.Cookie;
 /**
  * 文件工具类
  *
- * @author airpy
+ * @author Amio_
  */
 public class FileUtils {
     private FileUtils() {

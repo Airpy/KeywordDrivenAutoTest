@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 获取Firefox浏览器的安装参数
  *
- * @author airpy
+ * @author Amio_
  */
 public class FirefoxBrowserProfile {
     private Map<String, HashMap<String, String>> sectionsMap = new HashMap<String, HashMap<String, String>>();

@@ -7,7 +7,7 @@ import com.keyword.automation.dirver.InternetExplorer;
 /**
  * 创建不同类型的driver
  *
- * @author airpy
+ * @author Amio_
  */
 public class Browsers {
     private static WebBrowser activeBrowser;

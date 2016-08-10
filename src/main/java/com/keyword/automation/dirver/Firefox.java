@@ -15,7 +15,7 @@ import com.keyword.automation.base.browser.WebBrowser;
 /**
  * Firefox Webdriver生成器
  *
- * @author airpy
+ * @author Amio_
  */
 public class Firefox extends WebBrowser {
     /**

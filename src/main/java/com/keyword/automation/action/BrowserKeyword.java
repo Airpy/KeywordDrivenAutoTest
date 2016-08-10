@@ -12,7 +12,7 @@ import java.net.URL;
 /**
  * 封装浏览器操作关键字
  *
- * @author airpy
+ * @author Amio_
  */
 public class BrowserKeyword {
     // 不允许被初始化

@@ -20,7 +20,7 @@ import com.keyword.automation.base.utils.LogUtils;
 /**
  * 浏览器操作实现类
  *
- * @author airpy
+ * @author Amio_
  */
 public class WebBrowser {
     protected WebDriver driver;
@@ -104,18 +104,24 @@ public class WebBrowser {
 
     public void switchToDefaultFrame() {
         this.driver.switchTo().defaultContent();
+        LogUtils.info("切换默认Frame成功.");
     }
 
     public void switchToFrame(int index) {
-        this.driver.switchTo().frame(index);
+//        this.driver.switchTo().frame(index);
+        getWebDriverWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(index));
+        LogUtils.info("切换Frame成功，Frame元素为: [" + index + "].");
     }
 
     public void switchToFrame(Object obj) {
         if (obj instanceof String) {
-            this.driver.switchTo().frame(obj.toString());
+//            this.driver.switchTo().frame(obj.toString());
+            getWebDriverWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(obj.toString()));
         } else if (obj instanceof Integer) {
-            this.driver.switchTo().frame(Integer.parseInt(obj.toString()));
+//            this.driver.switchTo().frame(Integer.parseInt(obj.toString()));
+            getWebDriverWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(obj.toString()));
         }
+        LogUtils.info("切换Frame成功，Frame为: [" + obj.toString() + "].");
     }
 
     public void switchToFrame(String locator, String locatorValue) {
@@ -126,15 +132,20 @@ public class WebBrowser {
         } catch (Exception e) {
         }
         checkIsElementExists(webElement, locatorValue);
-        this.driver.switchTo().frame(webElement);
+//        this.driver.switchTo().frame(webElement);
+        getWebDriverWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(webElement));
+        LogUtils.info("切换Frame成功，Frame元素为: [" + webElement + "].");
     }
 
     public void switchToFrame(WebElement webElement) {
-        this.driver.switchTo().frame(webElement);
+//        this.driver.switchTo().frame(webElement);
+        getWebDriverWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(webElement));
+        LogUtils.info("切换Frame成功，Frame元素为: [" + webElement + "].");
     }
 
     public void switchToParentFrame() {
         this.driver.switchTo().parentFrame();
+        LogUtils.info("切换父Frame成功.");
     }
 
     public void browserBack() {
@@ -208,7 +219,7 @@ public class WebBrowser {
         WebElement webElement = null;
         try {
             // 一直等到页面元素可见及长、宽大于0即返回该元素
-            webElement = getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//body")));
+            webElement = getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.tagName("body")));
         } catch (Exception e) {
         }
         checkIsElementExists(webElement);
@@ -440,7 +451,7 @@ public class WebBrowser {
         js.executeScript(mouseHoverjs, webElement);
     }
 
-    private By verifyLocator(String locator, String locatorValue) {
+    public By verifyLocator(String locator, String locatorValue) {
         if (locator.equalsIgnoreCase("id")) {
             return By.id(locatorValue);
         }
@@ -474,15 +485,16 @@ public class WebBrowser {
     private void checkIsElementExists(WebElement webElement, String locator) {
         if (null == webElement) {
             this.driver.quit();
-            throw new NoSuchElementException(
-                    "no such element by [" + locator + "],please change locatorType[xpath,or the others]");
+            throw new NoSuchElementException("通过[" + locator +
+                    "]没有找到该页面元素,请尝试其他定位方式,如:[id/name/linkText/partialLinkText/tagName/xpath/].");
         }
     }
 
+    // 检查元素是否存在
     private void checkIsElementExists(WebElement webElement) {
         if (null == webElement) {
             this.driver.quit();
-            throw new NoSuchElementException("no such element, please change locatorType[xpath,or the others]");
+            throw new NoSuchElementException("没有找到该页面元素,请尝试其他定位方式,如:[id/name/linkText/partialLinkText/tagName/xpath/].");
         }
     }
 
@@ -491,14 +503,15 @@ public class WebBrowser {
         if (webElements.isEmpty()) {
             this.driver.quit();
             throw new NoSuchElementException(
-                    "no such element by [" + locator + "],please change locatorType[xpath,or the others]");
+                    "通过[" + locator + "]没有找到该页面元素,请尝试其他定位方式,如:[id/name/linkText/partialLinkText/tagName/xpath/].");
         }
     }
 
+    // 检查元素组是否存在
     private void checkIsElementExists(List<WebElement> webElements) {
         if (webElements.isEmpty()) {
             this.driver.quit();
-            throw new NoSuchElementException("no such element, please change locatorType[xpath,or the others]");
+            throw new NoSuchElementException("没有找到该页面元素,请尝试其他定位方式,如:[id/name/linkText/partialLinkText/tagName/xpath/].");
         }
     }
 }
