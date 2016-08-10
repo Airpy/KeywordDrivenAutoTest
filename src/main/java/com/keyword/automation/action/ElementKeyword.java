@@ -186,6 +186,7 @@ public class ElementKeyword {
     public static void clickElement(WebElement webElement) {
         if (checkElementDisplayedAndEnabled(webElement)) {
             webElement.click();
+            sleep(1);
         }
     }
 
@@ -198,11 +199,12 @@ public class ElementKeyword {
         WebElement webElement = ElementKeyword.findElement(by);
         if (checkElementDisplayedAndEnabled(webElement)) {
             webElement.click();
+            sleep(1);
         }
     }
 
     /**
-     * 通过元素定位类型及元素定位值寻找元素
+     * 通过元素定位类型及元素定位值寻找元素后点击该元素
      *
      * @param locator      元素定位类型(id/name/linkText/partialLinkText/tagName/xpath/className/cssSelector)
      * @param locatorValue 元素定位值
@@ -211,6 +213,20 @@ public class ElementKeyword {
         WebElement webElement = ElementKeyword.findElement(locator, locatorValue);
         if (checkElementDisplayedAndEnabled(webElement)) {
             webElement.click();
+            sleep(1);
+        }
+    }
+
+    /**
+     * 遍历点击页面元素(多用于点击复选框/单选框操作)
+     * @param webElements 页面元素组
+     */
+    public static void clickElements(List<WebElement> webElements) {
+        for (WebElement webElement : webElements) {
+            if (checkElementDisplayedAndEnabled(webElement)) {
+                webElement.click();
+                sleep(1);
+            }
         }
     }
 
@@ -769,6 +785,19 @@ public class ElementKeyword {
             return true;
         } else {
             throw new RuntimeException("元素没有找到,点击操作失败.");
+        }
+    }
+
+    /**
+     * 让当前进程暂停N秒
+     *
+     * @param seconds 秒数
+     */
+    private static void sleep(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
