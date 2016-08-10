@@ -6,6 +6,7 @@ import com.keyword.automation.base.utils.LogUtils;
 import org.openqa.selenium.*;
 
 import com.keyword.automation.base.browser.Browsers;
+import org.openqa.selenium.support.ui.Select;
 
 /**
  * 元素操作关键字
@@ -219,6 +220,7 @@ public class ElementKeyword {
 
     /**
      * 遍历点击页面元素(多用于点击复选框/单选框操作)
+     *
      * @param webElements 页面元素组
      */
     public static void clickElements(List<WebElement> webElements) {
@@ -772,6 +774,33 @@ public class ElementKeyword {
      */
     public static void moveToElement(String locator, String locatorValue) {
         Browsers.getActiveBrowser().moveToElement(locator, locatorValue);
+    }
+
+    /**
+     * 选择下拉菜单的指定菜单
+     *
+     * @param webElement    下拉菜单元素
+     * @param comboBoxIndex 指定菜单索引
+     */
+    public static void clickComboBox(WebElement webElement, int comboBoxIndex) {
+        Select comboBoxList = new Select(webElement);
+        comboBoxList.selectByIndex(comboBoxIndex);
+    }
+
+    /**
+     * 选择下拉菜单的指定菜单
+     *
+     * @param webElement          下拉菜单元素
+     * @param comboBoxValueOrText 指定菜单值或文本元素
+     * @param isValue             是否为菜单值，是则True，否则为False
+     */
+    public static void clickComboBox(WebElement webElement, String comboBoxValueOrText, boolean isValue) {
+        Select comboBoxList = new Select(webElement);
+        if (isValue) {
+            comboBoxList.selectByValue(comboBoxValueOrText);
+        } else {
+            comboBoxList.selectByVisibleText(comboBoxValueOrText);
+        }
     }
 
     /**
