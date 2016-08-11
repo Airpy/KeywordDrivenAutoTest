@@ -1,5 +1,6 @@
 package com.keyword.automation.action;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.keyword.automation.base.browser.BrowserType;
@@ -123,6 +124,15 @@ public class BrowserKeyword {
      */
     public static void switchToFrame(Object obj) {
         Browsers.getActiveBrowser().switchToFrame(obj);
+    }
+
+    /**
+     * 根据元素定位方式切换
+     *
+     * @param by 元素定位方式By(By.id(xx)/By.name(xx)等)
+     */
+    public static void switchToFrame(By by) {
+        Browsers.getActiveBrowser().switchToFrame(by);
     }
 
     /**
