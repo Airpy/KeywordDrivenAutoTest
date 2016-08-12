@@ -1,8 +1,8 @@
 package com.keyword.automation.customer;
 
-import com.keyword.automation.action.BrowserKeyword;
 import com.keyword.automation.action.ElementKeyword;
 import com.keyword.automation.base.utils.LogUtils;
+import com.keyword.automation.database.domain.GoodsType;
 import org.openqa.selenium.By;
 
 
@@ -12,10 +12,27 @@ import org.openqa.selenium.By;
  * @author Amio_
  */
 public class GoodsTypeKeyword {
+    // 新增商品类别按钮
+    private static final String ByAddButton = ".//a[@title='添加']";
+    // 新增商品类别按钮
+    private static final String ByAddWindow = ".//div[contains(@class,'dialog-common')]";
     // 新增商品类别弹出框--类名xpath
     private static final String ByGoodsName = ".//label[text()='类名']/following-sibling::div/span/input[1]";
+    // 新增商品类别弹出框--顺序号xpath
+    private static final String BySeq = ".//label[text()='顺序号']/following-sibling::div/span/input[1]";
+    // 新增商品类别弹出框--统计类别xpath
+    private static final String ByStatistics = ".//label[text()" +
+            "='统计类别']/following-sibling::div/span/span/following-sibling::input[1]";
+    // 新增商品类别弹出框--对应品牌xpath
+    private static final String ByBrand = ".//label[text()" +
+            "='对应品牌']/following-sibling::div/span/span/following-sibling::input[1]";
+    // 新增商品类别弹出框--对应状态（正常状态）xpath
+    private static final String ByNormalState = ".//label[text()='状态']/following-sibling::div/div/input[1]";
+    // 新增商品类别弹出框--对应状态（停用状态）xpath
+    private static final String ByDisableState = ".//label[text()='状态']/following-sibling::div/div/input[2]";
+    // 新增商品类别弹出框--保存按钮xpath
+    private static final String BySubmitButton = ".//span[text()='保存']";
 
-    private static final String BySeq = ".//";
     /**
      * 点击商品档案树状图的"全部"菜单
      */
@@ -49,15 +66,15 @@ public class GoodsTypeKeyword {
      *
      * @param firstGoodsTypeName 一级商品类别名称
      */
-    public static void addFirstGoodsType(String firstGoodsTypeName) {
+    public static void addFirstGoodsType(GoodsType goodsType) {
         selectWholeGoodsTypeTree();
-        ElementKeyword.clickElement(By.xpath(".//a[@title='添加']"));
-        System.out.println(1111);
-//        BrowserKeyword.switchToWindow();
-        ElementKeyword.findElement(By.xpath(".//div[contains(@class,'dialog-common')]"));
-        System.out.println(2222);
-        ElementKeyword.sendKeys(By.xpath(ByGoodsName), firstGoodsTypeName);
-        System.out.println(3333);
+        ElementKeyword.clickElement(By.xpath(ByAddButton));
+        ElementKeyword.findElement(By.xpath(ByAddWindow));
+        ElementKeyword.sendKeys(By.xpath(ByGoodsName), goodsType.getName());
+        ElementKeyword.sendKeys(By.xpath(BySeq), goodsType.getSeq());
+        ElementKeyword.sendKeys(By.xpath(ByBrand), goodsType.getBrandId());
+        ElementKeyword.clickElement(By.xpath(ByNormalState));
+        ElementKeyword.clickElement("xpath", BySubmitButton);
     }
 
     /**

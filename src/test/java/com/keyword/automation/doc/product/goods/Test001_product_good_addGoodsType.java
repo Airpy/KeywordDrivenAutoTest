@@ -7,6 +7,7 @@ import com.keyword.automation.base.utils.LogUtils;
 import com.keyword.automation.customer.GoodsTypeKeyword;
 import com.keyword.automation.customer.LoginKeyword;
 import com.keyword.automation.customer.MenuKeyword;
+import com.keyword.automation.database.domain.GoodsType;
 import org.eclipse.jetty.io.RuntimeIOException;
 import org.junit.After;
 import org.junit.Before;
@@ -43,8 +44,11 @@ public class Test001_product_good_addGoodsType {
 //        GoodsTypeKeyword.selectWholeGoodsTypeTree();
 //        // 点击添加按钮
 //        PageKeyword.clickFormButton(ElementKeyword.findBody(), "添加");
-        GoodsTypeKeyword.addFirstGoodsType("sdsdfsd");
-        ElementKeyword.sleep(10);
+        GoodsType goodsType = new GoodsType();
+        goodsType.setName("sdsdfs284d");
+        goodsType.setSeq("-11111");
+        goodsType.setBrandId("五味园");
+        GoodsTypeKeyword.addFirstGoodsType(goodsType);
 
     }
 
