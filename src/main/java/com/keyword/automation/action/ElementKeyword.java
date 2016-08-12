@@ -152,7 +152,7 @@ public class ElementKeyword {
      * 通过父元素WebElement寻找子元素组
      *
      * @param parent 父元素
-     * @param by     元素定位方式By(By.id(xx)/By.name(xx)等)
+     * @param by     子元素定位方式By(By.id(xx)/By.name(xx)等)
      * @return WebElement组
      */
     public static List<WebElement> findElements(WebElement parent, By by) {
@@ -163,7 +163,7 @@ public class ElementKeyword {
      * 通过父元素WebElement寻找子元素组
      *
      * @param parent       父元素
-     * @param locator      元素定位类型(id/name/linkText/partialLinkText/tagName/xpath/
+     * @param locator      子元素定位类型(id/name/linkText/partialLinkText/tagName/xpath/
      *                     className/cssSelector)
      * @param locatorValue 子元素定位值
      * @return WebElement组
@@ -822,7 +822,7 @@ public class ElementKeyword {
      *
      * @param seconds 秒数
      */
-    private static void sleep(int seconds) {
+    public static void sleep(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
         } catch (InterruptedException e) {

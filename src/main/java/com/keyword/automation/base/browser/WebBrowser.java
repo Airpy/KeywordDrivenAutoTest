@@ -137,8 +137,8 @@ public class WebBrowser {
     }
 
     public void switchToFrame(WebElement webElement) {
-//        this.driver.switchTo().frame(webElement);
-        getWebDriverWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(webElement));
+        this.driver.switchTo().frame(webElement);
+//        getWebDriverWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(webElement));
         LogUtils.info("切换Frame成功，Frame元素为: [" + webElement + "].");
     }
 
@@ -220,6 +220,7 @@ public class WebBrowser {
             // 一直等到页面元素可见及长、宽大于0即返回该元素
             webElement = getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.tagName("body")));
         } catch (Exception e) {
+            LogUtils.error("寻找body元素失败，失败原因为: " + e.getMessage());
         }
         checkIsElementExists(webElement);
         return webElement;
@@ -231,6 +232,7 @@ public class WebBrowser {
             // 一直等到页面元素可见及长、宽大于0即返回该元素
             webElement = getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Exception e) {
+            LogUtils.error("通过[" + by + "]寻找元素失败，失败原因为: " + e.getMessage());
         }
         checkIsElementExists(webElement);
         return webElement;
@@ -243,6 +245,7 @@ public class WebBrowser {
             // 一直等到页面元素可见及长、宽大于0即返回该元素
             webElement = getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(ByLocator));
         } catch (Exception e) {
+            LogUtils.error("通过元素定位符[" + locator + "]，元素定位值[" + locatorValue + "]寻找元素失败，失败原因为: " + e.getMessage());
         }
         checkIsElementExists(webElement, locatorValue);
         return webElement;
@@ -254,9 +257,12 @@ public class WebBrowser {
         By subByLocator = verifyLocator(subLocator, subLocatorValue);
         try {
             // 一直等到页面元素可见及长、宽大于0即返回该元素
-            webElement = (WebElement) getWebDriverWait()
+            List<WebElement> elementList = getWebDriverWait()
                     .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ByLocator, subByLocator));
+            webElement = checkIsMultiElement(elementList);
         } catch (Exception e) {
+            LogUtils.error("通过父元素定位符[" + locator + "]，父元素定位值[" + locatorValue + "]，子元素定位符[" + subLocator +
+                    "]，子元素定位值[" + subLocatorValue + "]寻找子元素失败，失败原因为: " + e.getMessage());
         }
         checkIsElementExists(webElement, locatorValue);
         return webElement;
@@ -266,9 +272,11 @@ public class WebBrowser {
         WebElement webElement = null;
         try {
             // 一直等到页面元素可见及长、宽大于0即返回该元素
-            webElement = (WebElement) getWebDriverWait()
+            List<WebElement> elementList = getWebDriverWait()
                     .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(locator, subLocator));
+            webElement = checkIsMultiElement(elementList);
         } catch (Exception e) {
+            LogUtils.error("通过父元素定位方式[" + locator + "]，子元素定位方式[" + subLocator + "寻找子元素失败，失败原因为: " + e.getMessage());
         }
         checkIsElementExists(webElement);
         return webElement;
@@ -278,9 +286,11 @@ public class WebBrowser {
         WebElement webElement = null;
         try {
             // 一直等到页面元素可见及长、宽大于0即返回该元素
-            webElement = (WebElement) getWebDriverWait()
+            List<WebElement> elementList = getWebDriverWait()
                     .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent, by));
+            webElement = checkIsMultiElement(elementList);
         } catch (Exception e) {
+            LogUtils.error("通过父元素[" + parent + "]，子元素定位方式[" + by + "寻找子元素失败，失败原因为: " + e.getMessage());
         }
         checkIsElementExists(webElement);
         return webElement;
@@ -291,9 +301,12 @@ public class WebBrowser {
         By ByLocator = verifyLocator(locator, locatorValue);
         try {
             // 一直等到页面元素可见及长、宽大于0即返回该元素
-            webElement = (WebElement) getWebDriverWait()
+            List<WebElement> elementList = getWebDriverWait()
                     .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent, ByLocator));
+            webElement = checkIsMultiElement(elementList);
         } catch (Exception e) {
+            LogUtils.error("通过父元素[" + parent + "]，子元素定位符[" + locator + "]，子元素定位值[" + locatorValue + "]寻找子元素失败，失败原因为: " +
+                    "" + e.getMessage());
         }
         checkIsElementExists(webElement, locatorValue);
         return webElement;
@@ -305,6 +318,7 @@ public class WebBrowser {
             // 一直等到页面元素可见及长、宽大于0即返回该元素组
             webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
         } catch (Exception e) {
+            LogUtils.error("通过元素定位方式[" + by + "]寻找元素组失败，失败原因为: " + e.getMessage());
         }
         checkIsElementExists(webElements);
         return webElements;
@@ -317,6 +331,7 @@ public class WebBrowser {
             // 一直等到页面元素可见及长、宽大于0即返回该元素组
             webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(ByLocator));
         } catch (Exception e) {
+            LogUtils.error("通过元素定位符[" + locator + "]，元素定位值[" + locatorValue + "]寻找元素组失败，失败原因为: " + e.getMessage());
         }
         checkIsElementExists(webElements, locatorValue);
         return webElements;
@@ -332,6 +347,8 @@ public class WebBrowser {
             webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ByLocator,
                     BySubLocator));
         } catch (Exception e) {
+            LogUtils.error("通过父元素定位符[" + locator + "]，父元素定位值[" + locatorValue + "]，子元素定位符[" + subLocator +
+                    "]，子元素定位值[" + subLocatorValue + "]寻找子元素组失败，失败原因为: " + e.getMessage());
         }
         checkIsElementExists(webElements, locatorValue);
         return webElements;
@@ -344,6 +361,8 @@ public class WebBrowser {
             webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ByLocator,
                     BySubLocator));
         } catch (Exception e) {
+            LogUtils.error("通过父元素定位方式[" + ByLocator + "]，子元素定位方式[" + BySubLocator + "寻找子元素组失败，失败原因为: " + e.getMessage
+                    ());
         }
         checkIsElementExists(webElements);
         return webElements;
@@ -355,6 +374,7 @@ public class WebBrowser {
             // 一直等到页面元素可见及长、宽大于0即返回该元素组
             webElements = getWebDriverWait().until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent, by));
         } catch (Exception e) {
+            LogUtils.error("通过父元素[" + parent + "]，子元素定位方式[" + by + "寻找子元素组失败，失败原因为: " + e.getMessage());
         }
         checkIsElementExists(webElements);
         return webElements;
@@ -368,6 +388,8 @@ public class WebBrowser {
             webElements = getWebDriverWait()
                     .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent, ByLocator));
         } catch (Exception e) {
+            LogUtils.error("通过父元素[" + parent + "]，子元素定位符[" + locator + "]，子元素定位值[" + locatorValue +
+                    "]寻找子元素组失败，失败原因为:" + e.getMessage());
         }
         checkIsElementExists(webElements, locatorValue);
         return webElements;
@@ -515,5 +537,19 @@ public class WebBrowser {
             throw new NoSuchElementException("没有找到该页面元素,请尝试其他定位方式," +
                     "如:[id/name/linkText/partialLinkText/tagName/xpath/className/cssSelector].");
         }
+    }
+
+    // 判断返回的是否为多个页面元素
+    public WebElement checkIsMultiElement(List<WebElement> elementList) {
+        if (null != elementList) {
+            if (elementList.size() == 1) {
+                return elementList.get(0);
+            } else {
+                throw new RuntimeException
+                        ("对不起，使用该定位方式返回存在多个WebElement，建议您使用其他定位方式，如:[id/name/linkText/partialLinkText/tagName/xpath" +
+                                "/className/cssSelector].");
+            }
+        }
+        throw new RuntimeException("没有找到对应的页面元素.");
     }
 }
