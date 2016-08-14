@@ -7,31 +7,31 @@ package com.keyword.automation.database.domain;
  */
 public class GoodsType {
     // 商品类别编号
-    private String id;
+    private int id;
     // 批发商编号
-    private String cid;
+    private int cid;
     // 商品类别名称
     private String name;
     // 父类别编号
-    private String pid;
+    private int pid;
     // 顺序号
     private String seq;
     // 统计类别
-    private String statisticsId;
+    private int statisticsId;
     // 分类方式
     private String classification;
     // 品牌
     private String brandId;
     // 状态
-    private String state;
+    private int state;
     // 类别链
     private String typeChain;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public String getCid() {
+    public int getCid() {
         return cid;
     }
 
@@ -39,7 +39,7 @@ public class GoodsType {
         return name;
     }
 
-    public String getPid() {
+    public int getPid() {
         return pid;
     }
 
@@ -47,7 +47,7 @@ public class GoodsType {
         return seq;
     }
 
-    public String getStatisticsId() {
+    public int getStatisticsId() {
         return statisticsId;
     }
 
@@ -59,7 +59,7 @@ public class GoodsType {
         return brandId;
     }
 
-    public String getState() {
+    public int getState() {
         return state;
     }
 
@@ -67,11 +67,11 @@ public class GoodsType {
         return typeChain;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setCid(String cid) {
+    public void setCid(int cid) {
         this.cid = cid;
     }
 
@@ -79,7 +79,7 @@ public class GoodsType {
         this.name = name;
     }
 
-    public void setPid(String pid) {
+    public void setPid(int pid) {
         this.pid = pid;
     }
 
@@ -87,7 +87,7 @@ public class GoodsType {
         this.seq = seq;
     }
 
-    public void setStatisticsId(String statisticsId) {
+    public void setStatisticsId(int statisticsId) {
         this.statisticsId = statisticsId;
     }
 
@@ -99,7 +99,7 @@ public class GoodsType {
         this.brandId = brandId;
     }
 
-    public void setState(String state) {
+    public void setState(int state) {
         this.state = state;
     }
 

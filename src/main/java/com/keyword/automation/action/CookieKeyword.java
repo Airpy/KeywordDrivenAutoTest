@@ -113,7 +113,6 @@ public class CookieKeyword {
     /**
      * 从Cookie文件中获取所有Cookie
      *
-     * @param cookieFile Cookie文件名称
      * @return
      */
     public static Set<Cookie> getAllCookiesFromFile() {
