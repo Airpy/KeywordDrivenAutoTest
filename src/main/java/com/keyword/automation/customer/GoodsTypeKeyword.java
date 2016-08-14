@@ -124,15 +124,15 @@ public class GoodsTypeKeyword {
      * 修改制定商品类别
      *
      * @param targetGoodsType 指定商品类别
-     * @param goodsType       修改后的商品类别对象
+     * @param afterGoodsType  修改后的商品类别对象
      */
-    public static void editGoodsType(String targetGoodsType, GoodsType goodsType) {
+    public static void editGoodsType(String targetGoodsType, GoodsType afterGoodsType) {
         // 如果该类别存在,则选中它并修改;如果不存在直接新增该商品类别(一级类别)
         if (checkIsGoodsTypeExists(targetGoodsType)) {
             selectSpecifiedGoodsType(targetGoodsType);
-            addOrEditGoodsType("edit", goodsType);
+            addOrEditGoodsType("edit", afterGoodsType);
         } else {
-            addFirstGoodsType(goodsType);
+            addFirstGoodsType(afterGoodsType);
         }
     }
 
@@ -149,6 +149,18 @@ public class GoodsTypeKeyword {
             ElementKeyword.clickElement(By.xpath(byConfirmDeleteButton));
             LogUtils.info("删除[" + targetGoodsType + "]成功.");
         }
+    }
+
+    /**
+     * 从数据库中捞出数据与操作数据比对
+     *
+     * @param goodsType 操作数据--商品类别对象
+     * @param cid       批发商编号
+     * @return 如果相同则返回True, 否则返回False
+     */
+    public static boolean checkDataFromDB(GoodsType goodsType, String cid) {
+        // 后面维护
+        return true;
     }
 
     /**

@@ -792,7 +792,7 @@ public class ElementKeyword {
      *
      * @param webElement          下拉菜单元素
      * @param comboBoxValueOrText 指定菜单值或文本元素
-     * @param isValue             是否为菜单值，是则True，否则为False
+     * @param isValue             是否为下拉菜单元素属性值，是则True，否则为False
      */
     public static void clickComboBox(WebElement webElement, String comboBoxValueOrText, boolean isValue) {
         Select comboBoxList = new Select(webElement);

@@ -471,7 +471,7 @@ public class Goods {
 
     @Override
     public String toString() {
-        return "Goods{" +
+        return "GoodsKeyword{" +
                 "id=" + id +
                 ", cid=" + cid +
                 ", name='" + name + '\'' +

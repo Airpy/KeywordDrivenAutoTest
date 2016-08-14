@@ -20,7 +20,6 @@ import org.openqa.selenium.By;
  * @author Amio_
  */
 public class Test001_Product_Goods_TestGoodsType {
-    private final String byFrame = ".//iframe[@id='erp/doc/goods/list']";
     // 目前测试数据先定义在这边,后面放到properties文件中维护
     private static GoodsType firstGoodsType = new GoodsType();
     private static GoodsType secondGoodsType = new GoodsType();
@@ -35,6 +34,7 @@ public class Test001_Product_Goods_TestGoodsType {
 
     @Before
     public void setUp() {
+        String byFrame = ".//iframe[@id='erp/doc/goods/list']";
         // 登录系统
         if (LoginKeyword.loginSystem()) {
             LogUtils.info("登陆系统成功，当前登录用户为: [" + Constants.TEST_USERNAME + "].");
