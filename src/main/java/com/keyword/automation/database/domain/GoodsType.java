@@ -15,17 +15,23 @@ public class GoodsType {
     // 父类别编号
     private int pid;
     // 顺序号
-    private String seq;
+    private int seq;
     // 统计类别
-    private int statisticsId;
+    private String statisticsId;
     // 分类方式
-    private String classification;
+    private int classification;
     // 品牌
     private String brandId;
     // 状态
     private int state;
     // 类别链
     private String typeChain;
+
+    public GoodsType(String name, int seq, String brandId) {
+        this.name = name;
+        this.seq = seq;
+        this.brandId = brandId;
+    }
 
     public int getId() {
         return id;
@@ -43,15 +49,15 @@ public class GoodsType {
         return pid;
     }
 
-    public String getSeq() {
+    public int getSeq() {
         return seq;
     }
 
-    public int getStatisticsId() {
+    public String getStatisticsId() {
         return statisticsId;
     }
 
-    public String getClassification() {
+    public int getClassification() {
         return classification;
     }
 
@@ -83,15 +89,15 @@ public class GoodsType {
         this.pid = pid;
     }
 
-    public void setSeq(String seq) {
+    public void setSeq(int seq) {
         this.seq = seq;
     }
 
-    public void setStatisticsId(int statisticsId) {
+    public void setStatisticsId(String statisticsId) {
         this.statisticsId = statisticsId;
     }
 
-    public void setClassification(String classification) {
+    public void setClassification(int classification) {
         this.classification = classification;
     }
 

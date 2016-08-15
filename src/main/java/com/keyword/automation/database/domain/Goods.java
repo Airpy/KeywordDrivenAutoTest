@@ -101,6 +101,16 @@ public class Goods {
     // 修改时间
     private Date updateTime;
 
+    public Goods(String name, String baseBarcode, String pkgBarcode, int unitFactor, double baseWholesale, double
+            pkgWholesale) {
+        this.name = name;
+        this.baseBarcode = baseBarcode;
+        this.pkgBarcode = pkgBarcode;
+        this.unitFactor = unitFactor;
+        this.baseWholesale = baseWholesale;
+        this.pkgWholesale = pkgWholesale;
+    }
+
     public int getId() {
         return id;
     }

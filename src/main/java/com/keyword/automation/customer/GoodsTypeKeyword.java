@@ -81,7 +81,7 @@ public class GoodsTypeKeyword {
         }
         ElementKeyword.findElement(By.xpath(byAddWindow));
         ElementKeyword.sendKeys(By.xpath(byGoodsName), goodsType.getName());
-        ElementKeyword.sendKeys(By.xpath(bySeq), goodsType.getSeq());
+        ElementKeyword.sendKeys(By.xpath(bySeq), String.valueOf(goodsType.getSeq()));
 //        ElementKeyword.sendKeys(By.xpath(byStatistics), String.valueOf(GoodsType.getStatisticsId()));
         ElementKeyword.sendKeys(By.xpath(byBrand), goodsType.getBrandId());
         ElementKeyword.clickElement(By.xpath(byNormalState));
@@ -173,7 +173,6 @@ public class GoodsTypeKeyword {
         try {
             // 拷贝当前生效的driver到临时driver
             WebDriver tempDriver = Browsers.getActiveBrowser().getDriver();
-            tempDriver.findElement(By.xpath(".//span[text()='" + goodsTypeName + "']"));
             // 如果寻找元素没有报错,则说明该商品类别存在,返回True,否则False
             tempDriver.findElement(By.xpath(".//span[text()='" + goodsTypeName + "']"));
             return true;

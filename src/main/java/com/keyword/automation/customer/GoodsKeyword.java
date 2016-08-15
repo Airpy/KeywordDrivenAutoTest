@@ -65,7 +65,7 @@ public class GoodsKeyword {
     private static final String byCloseButton = ".//span[text()='关闭']";
 
     /**
-     * 在指定商品下添加商品档案
+     * 在指定商品下添加商品档案(正常状态)
      *
      * @param targetGoodsType 指定商品类别
      * @param goods           商品档案对象
@@ -79,13 +79,13 @@ public class GoodsKeyword {
         // 选择"瓶"基本单位
         ElementKeyword.clickElement(By.xpath(byBaseUint));
         ElementKeyword.clickElement(By.xpath(".//div[contains(@class,'combo-p')]/div[contains(@class," +
-                "'panel-body-noheader')]/div[@id='_easyui_combobox_i1_1']"));
+                "'panel-body-noheader')]/div[text()='瓶']"));
         ElementKeyword.sendKeys(By.xpath(byBaseUnitBarcode), goods.getBaseBarcode());
 //        ElementKeyword.clickComboBox(ElementKeyword.findElement(By.xpath(byPkgUnit)), "包", false);
-        // 选择"箱"大包单位
+        // 选择"箱"大包单位(因为初始化数据小包、大包均有"箱"单位，删除小包单位"箱")
         ElementKeyword.clickElement(By.xpath(byPkgUnit));
         ElementKeyword.clickElement(By.xpath(".//div[contains(@class,'combo-p')]/div[contains(@class," +
-                "'panel-body-noheader')]/div[@id='_easyui_combobox_i2_1']"));
+                "'panel-body-noheader')]/div[text()='箱']"));
         ElementKeyword.sendKeys(By.xpath(byPkgUnitBarcode), goods.getPkgBarcode());
         ElementKeyword.sendKeys(By.xpath(byBaseWholeSale), String.valueOf(goods.getBaseWholesale()));
         ElementKeyword.sendKeys(By.xpath(byUnitFactor), String.valueOf(goods.getUnitFactor()));

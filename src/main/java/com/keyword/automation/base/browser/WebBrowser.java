@@ -137,8 +137,8 @@ public class WebBrowser {
     }
 
     public void switchToFrame(WebElement webElement) {
-        this.driver.switchTo().frame(webElement);
-//        getWebDriverWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(webElement));
+//        this.driver.switchTo().frame(webElement);
+        getWebDriverWait().until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(webElement));
         LogUtils.info("切换Frame成功，Frame元素为: [" + webElement + "].");
     }
 
