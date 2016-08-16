@@ -31,6 +31,7 @@ public class Test002_Product_TestBrand {
 
     @Before
     public void setUp() {
+        LogUtils.info("--------------------测试预处理:登录系统--------------------");
         String byFrame = ".//iframe[@id='erp/doc/brand/list']";
         // 登录系统
         if (LoginKeyword.loginSystem()) {
@@ -88,6 +89,7 @@ public class Test002_Product_TestBrand {
 
     @After
     public void tearDown() {
+        LogUtils.info("--------------------测试后处理:删除品牌--------------------");
         BrandKeyword.deleteBrand(brand.getName());
         // 关闭浏览器所有标签页
         BrowserKeyword.browserQuit();

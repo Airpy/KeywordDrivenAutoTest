@@ -24,7 +24,7 @@ public class BrandKeyword {
     // 展示停用品牌复选框
     private static final String byIsDisplayDisableBrandCheckBox = ".//label/input[@name='docstate']";
     // 添加品牌按钮
-    private static final String byAddButton = ".//span[text()='添加']";
+//    private static final String byAddButton = ".//span[text()='添加']";
     // 批量删除品牌按钮
     private static final String byBatchDeleteButton = ".//span[text()='批量删除']";
     // 添加品牌弹出窗口
@@ -38,7 +38,7 @@ public class BrandKeyword {
     // 新增品牌弹出框--停用状态xpath
     private static final String byDisableState = ".//label[text()='状态：']/following-sibling::div/div/input[2]";
     // 新增品牌弹出框--保存按钮xpath
-    private static final String bySaveButton = ".//span[text()='保存']";
+//    private static final String bySaveButton = ".//span[text()='保存']";
     // 新增品牌弹出框--保存并新增按钮xpath
     private static final String bySaveAndAddButton = ".//span[text()='保存并新增']";
     // 新增品牌弹出框--关闭按钮xpath
@@ -55,12 +55,14 @@ public class BrandKeyword {
      */
     public static void addBrand(Brand brand) {
         if (!checkIsBrandExists(brand.getName())) {
-            ElementKeyword.clickElement(By.xpath(byAddButton));
+//            ElementKeyword.clickElement(By.xpath(byAddButton));
+            PageKeyword.clickPageButton("添加");
             ElementKeyword.findElement(By.xpath(byAddWindow));
             ElementKeyword.sendKeys(By.xpath(byBrandName), brand.getName());
             ElementKeyword.sendKeys(By.xpath(bySeq), String.valueOf(brand.getSeq()));
             ElementKeyword.clickElement(By.xpath(byNormalState));
-            ElementKeyword.clickElement(By.xpath(bySaveButton));
+//            ElementKeyword.clickElement(By.xpath(bySaveButton));
+            PageKeyword.clickPageButton("保存");
             LogUtils.info("添加品牌[" + brand.getName() + "]成功.");
         } else {
             LogUtils.warn("品牌[" + brand.getName() + "]已经存在.");
@@ -81,7 +83,8 @@ public class BrandKeyword {
             ElementKeyword.clickElement(By.xpath(byEditButton));
             ElementKeyword.sendKeys(By.xpath(byBrandName), targetBrand.getName());
             ElementKeyword.sendKeys(By.xpath(bySeq), String.valueOf(targetBrand.getSeq()));
-            ElementKeyword.clickElement(By.xpath(bySaveButton));
+//            ElementKeyword.clickElement(By.xpath(bySaveButton));
+            PageKeyword.clickPageButton("保存");
             LogUtils.info("修改品牌成功,原品牌名称为[" + brandName + "]，修改为[" + targetBrand.toString() + "].");
         } else {
             addBrand(targetBrand);
@@ -100,7 +103,8 @@ public class BrandKeyword {
                     "']/parent::td/following-sibling::td[3]/div/span[2]/a";
             ElementKeyword.clickElement(By.xpath(byDeleteButton));
             ElementKeyword.findElement(By.xpath(byDeleteWindow));
-            ElementKeyword.clickElement(By.xpath(byConfirmDeleteButton));
+//            ElementKeyword.clickElement(By.xpath(byConfirmDeleteButton));
+            PageKeyword.clickPageButton("确认");
             LogUtils.info("删除品牌[" + brandName + "]成功.");
         }
     }
@@ -123,6 +127,12 @@ public class BrandKeyword {
 
     }
 
+    /**
+     * 检查品牌名称是否存在
+     *
+     * @param brandName 品牌名称
+     * @return 存在相同名称的品牌，则返回True，否则返回False
+     */
     public static boolean checkIsBrandExists(String brandName) {
         try {
             // 拷贝当前生效的driver到临时driver

@@ -3,8 +3,10 @@ package com.keyword.automation.bill.sale;
 import com.keyword.automation.action.BrowserKeyword;
 import com.keyword.automation.base.common.Constants;
 import com.keyword.automation.base.utils.LogUtils;
-import com.keyword.automation.customer.LoginKeyword;
-import com.keyword.automation.customer.MenuKeyword;
+import com.keyword.automation.customer.*;
+import com.keyword.automation.database.domain.Brand;
+import com.keyword.automation.database.domain.Goods;
+import com.keyword.automation.database.domain.GoodsType;
 import org.eclipse.jetty.io.RuntimeIOException;
 import org.junit.After;
 import org.junit.Before;
@@ -19,15 +21,15 @@ import org.openqa.selenium.By;
  * @author Amio_
  */
 public class Test002_Sale_TestSaleBill {
+    // 目前测试数据先定义在这边,后面放到properties文件中维护
+    private static GoodsType firstGoodsType = new GoodsType("自动化测试一级类别", -9999, "自动化测试品牌");
+    private Brand brand = new Brand("自动化测试品牌", -9999);
+    private static Goods goods = new Goods("自动化测试商品档案", "999999999999", "999999999998", 9, 1.6, 12.8);
+
     @Before
     public void setUp() {
         String bySaleBillFrame = ".//iframe[@id='erp/sale/sale/load/add/0?type=0']";
-        // 登录系统
-        if (LoginKeyword.loginSystem()) {
-            LogUtils.info("登陆系统成功，当前登录用户为: [" + Constants.TEST_USERNAME + "].");
-        } else {
-            throw new RuntimeIOException("登录系统失败.");
-        }
+        BusinessKeyword.loginAndGoodsAndSwitchToBill(brand, firstGoodsType, goods);
         MenuKeyword.selectMenu("销售", "销售单");
         BrowserKeyword.switchToFrame(By.xpath(bySaleBillFrame));
     }
@@ -42,5 +44,7 @@ public class Test002_Sale_TestSaleBill {
     @After
     public void tearDown() {
 
+        GoodsTypeKeyword.deleteGoodsType(firstGoodsType.getName());
+        BrowserKeyword.browserQuit();
     }
 }

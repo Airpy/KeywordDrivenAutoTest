@@ -100,4 +100,15 @@ public class PageKeyword {
         row = row - 1;
         ElementKeyword.clickElement(webElements.get(row));
     }
+
+    /**
+     * 点击页面按钮
+     *
+     * @param buttonName 指定按钮名称，如添加/批量删除/保存/保存并新增/关闭/确认/取消/导入/导出 <br/>
+     *                   注意：商品分类的添加/修改/删除除外
+     */
+    public static void clickPageButton(String buttonName) {
+        By byButton = By.xpath(".//span[text()='" + buttonName + "']");
+        ElementKeyword.clickElement(byButton);
+    }
 }

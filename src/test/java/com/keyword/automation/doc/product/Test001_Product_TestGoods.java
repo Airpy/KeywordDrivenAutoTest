@@ -9,6 +9,7 @@ import com.keyword.automation.database.domain.GoodsType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 /**
  * 入口:档案-商品相关-商品档案<br/>
@@ -28,19 +29,28 @@ public class Test001_Product_TestGoods {
 
     @Before
     public void setUp() {
+        LogUtils.info("--------------------测试预处理:登录系统并添加测试品牌、测试商品类别--------------------");
         BusinessKeyword.loginAndAddBrandAndSwitchToGoods(brand);
+        GoodsTypeKeyword.addSecondGoodsType(firstGoodsType, secondGoodsType);
     }
 
     @Test
     // 添加商品档案
     public void testAddGoods() {
         LogUtils.info("--------------------测试添加商品档案--------------------");
-        GoodsTypeKeyword.addSecondGoodsType(firstGoodsType, secondGoodsType);
         GoodsKeyword.addGoods(secondGoodsType.getName(), goods);
     }
 
     @After
     public void tearDown() {
+        LogUtils.info("--------------------测试后处理:删除商品类别及品牌--------------------");
+        GoodsKeyword.deleteGoods(secondGoodsType.getName(), goods.getName());
+        GoodsTypeKeyword.deleteGoodsType(secondGoodsType.getName());
+        GoodsTypeKeyword.deleteGoodsType(firstGoodsType.getName());
+        BrowserKeyword.switchToDefaultFrameOrWindow();
+        MenuKeyword.selectMenu("档案", "品牌档案");
+        BrowserKeyword.switchToFrame(By.xpath(".//iframe[@id='erp/doc/brand/list']"));
+        BrandKeyword.deleteBrand(brand.getName());
         BrowserKeyword.browserQuit();
     }
 }

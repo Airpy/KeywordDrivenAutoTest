@@ -18,12 +18,12 @@ public class GoodsTypeKeyword {
 
     }
 
-    // 新增商品类别按钮
-    private static final String byAddButton = ".//a[@title='添加']";
-    // 修改商品类别按钮
-    private static final String byEditButton = ".//a[@title='修改']";
-    // 删除商品类别按钮
-    private static final String byDeleteButton = ".//a[@title='删除']";
+//    // 新增商品类别按钮
+//    private static final String byAddButton = ".//a[@title='添加']";
+//    // 修改商品类别按钮
+//    private static final String byEditButton = ".//a[@title='修改']";
+//    // 删除商品类别按钮
+//    private static final String byDeleteButton = ".//a[@title='删除']";
     // 新增商品类别弹出窗口
     private static final String byAddWindow = ".//div[contains(@class,'dialog-common')]";
     // 新增商品类别弹出框--类名xpath
@@ -40,12 +40,12 @@ public class GoodsTypeKeyword {
     private static final String byNormalState = ".//label[text()='状态']/following-sibling::div/div/input[1]";
     // 新增商品类别弹出框--对应状态（停用状态）xpath
     private static final String byDisableState = ".//label[text()='状态']/following-sibling::div/div/input[2]";
-    // 新增商品类别弹出框--保存按钮xpath
-    private static final String bySubmitButton = ".//span[text()='保存']";
+//    // 新增商品类别弹出框--保存按钮xpath
+//    private static final String bySubmitButton = ".//span[text()='保存']";
     // 删除商品类别弹出窗口
     private static final String byDeleteWindow = ".//div[text()='确认删除']/parent::div/parent::div";
-    // 确认删除商品类别按钮
-    private static final String byConfirmDeleteButton = ".//span[text()='确认']";
+//    // 确认删除商品类别按钮
+//    private static final String byConfirmDeleteButton = ".//span[text()='确认']";
 
     /**
      * 点击商品档案树状图的"全部"菜单
@@ -73,9 +73,11 @@ public class GoodsTypeKeyword {
      */
     public static void addOrEditGoodsType(String actionType, GoodsType goodsType) {
         if (actionType.equalsIgnoreCase("add")) {
-            ElementKeyword.clickElement(By.xpath(byAddButton));
+//            ElementKeyword.clickElement(By.xpath(byAddButton));
+            clickPageButton("添加");
         } else if (actionType.equalsIgnoreCase("edit")) {
-            ElementKeyword.clickElement(By.xpath(byEditButton));
+//            ElementKeyword.clickElement(By.xpath(byEditButton));
+            clickPageButton("修改");
         } else {
             throw new RuntimeException("操作类型[" + actionType + "]错误.");
         }
@@ -85,7 +87,8 @@ public class GoodsTypeKeyword {
 //        ElementKeyword.sendKeys(By.xpath(byStatistics), String.valueOf(GoodsType.getStatisticsId()));
         ElementKeyword.sendKeys(By.xpath(byBrand), goodsType.getBrandId());
         ElementKeyword.clickElement(By.xpath(byNormalState));
-        ElementKeyword.clickElement("xpath", bySubmitButton);
+//        ElementKeyword.clickElement("xpath", bySubmitButton);
+        PageKeyword.clickPageButton("保存");
         LogUtils.info("操作[" + actionType + "]商品类别[" + goodsType.getName() + "]成功.");
     }
 
@@ -144,9 +147,11 @@ public class GoodsTypeKeyword {
     public static void deleteGoodsType(String targetGoodsType) {
         if (checkIsGoodsTypeExists(targetGoodsType)) {
             selectSpecifiedGoodsType(targetGoodsType);
-            ElementKeyword.clickElement(By.xpath(byDeleteButton));
+//            ElementKeyword.clickElement(By.xpath(byDeleteButton));
+            clickPageButton("删除");
             ElementKeyword.findElement(By.xpath(byDeleteWindow));
-            ElementKeyword.clickElement(By.xpath(byConfirmDeleteButton));
+//            ElementKeyword.clickElement(By.xpath(byConfirmDeleteButton));
+            PageKeyword.clickPageButton("确认");
             LogUtils.info("删除[" + targetGoodsType + "]成功.");
         }
     }
@@ -180,5 +185,15 @@ public class GoodsTypeKeyword {
             LogUtils.info("商品类别[" + goodsTypeName + "]不存在.");
             return false;
         }
+    }
+
+    /**
+     * 点击页面按钮
+     *
+     * @param buttonName 指定按钮名称，如添加/修改/删除除外
+     */
+    private static void clickPageButton(String buttonName) {
+        By byButton = By.xpath(".//a[@title='" + buttonName + "']");
+        ElementKeyword.clickElement(byButton);
     }
 }

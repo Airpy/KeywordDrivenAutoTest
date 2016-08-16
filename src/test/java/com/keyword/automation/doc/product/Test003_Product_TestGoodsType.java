@@ -1,6 +1,7 @@
 package com.keyword.automation.doc.product;
 
 import com.keyword.automation.action.BrowserKeyword;
+import com.keyword.automation.action.ElementKeyword;
 import com.keyword.automation.base.utils.LogUtils;
 import com.keyword.automation.customer.*;
 import com.keyword.automation.database.domain.Brand;
@@ -8,6 +9,7 @@ import com.keyword.automation.database.domain.GoodsType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 /**
  * 入口:档案-商品相关-商品档案<br/>
@@ -26,6 +28,7 @@ public class Test003_Product_TestGoodsType {
 
     @Before
     public void setUp() {
+        LogUtils.info("--------------------测试预处理:登录系统并添加测试品牌--------------------");
         BusinessKeyword.loginAndAddBrandAndSwitchToGoods(brand);
     }
 
@@ -54,13 +57,19 @@ public class Test003_Product_TestGoodsType {
         LogUtils.info("--------------------测试删除商品类别--------------------");
         // 先添加商品类别再删除,因为后处理都把原来新建的都删除了
         GoodsTypeKeyword.addSecondGoodsType(firstGoodsType, secondGoodsType);
+        GoodsTypeKeyword.deleteGoodsType(secondGoodsType.getName());
+        GoodsTypeKeyword.deleteGoodsType(firstGoodsType.getName());
     }
 
     @After
     public void tearDown() {
-        // 删除新建的商品类别,还原系统数据
+        LogUtils.info("--------------------测试后处理:删除商品类别及品牌--------------------");
         GoodsTypeKeyword.deleteGoodsType(secondGoodsType.getName());
         GoodsTypeKeyword.deleteGoodsType(firstGoodsType.getName());
+        BrowserKeyword.switchToDefaultFrameOrWindow();
+        MenuKeyword.selectMenu("档案", "品牌档案");
+        BrowserKeyword.switchToFrame(By.xpath(".//iframe[@id='erp/doc/brand/list']"));
+        BrandKeyword.deleteBrand(brand.getName());
         // 关闭浏览器所有标签页
         BrowserKeyword.browserQuit();
     }

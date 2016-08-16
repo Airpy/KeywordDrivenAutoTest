@@ -63,6 +63,8 @@ public class GoodsKeyword {
     private static final String bySaveAndAddButton = ".//span[text()='保存并新增']";
     // 新增商品档案弹出框--关闭按钮xpath
     private static final String byCloseButton = ".//span[text()='关闭']";
+    // 删除商品档案弹出窗口
+    private static final String byDeleteWindow = ".//div[text()='确认删除？']/parent::div/parent::div";
 
     /**
      * 在指定商品下添加商品档案(正常状态)
@@ -71,45 +73,78 @@ public class GoodsKeyword {
      * @param goods           商品档案对象
      */
     public static void addGoods(String targetGoodsType, Goods goods) {
-        GoodsTypeKeyword.selectSpecifiedGoodsType(targetGoodsType);
-        ElementKeyword.clickElement(By.xpath(byAddButton));
-        ElementKeyword.findElement(By.xpath(byAddWindow));
-        ElementKeyword.sendKeys(By.xpath(byGoodsName), goods.getName());
+        if (!checkIsGoodsExists(goods.getName())) {
+            GoodsTypeKeyword.selectSpecifiedGoodsType(targetGoodsType);
+//        ElementKeyword.clickElement(By.xpath(byAddButton));
+            PageKeyword.clickPageButton("添加");
+            ElementKeyword.findElement(By.xpath(byAddWindow));
+            ElementKeyword.sendKeys(By.xpath(byGoodsName), goods.getName());
 //        ElementKeyword.clickComboBox(ElementKeyword.findElement(By.xpath(byBaseUint)), "瓶", false);
-        // 选择"瓶"基本单位
-        ElementKeyword.clickElement(By.xpath(byBaseUint));
-        ElementKeyword.clickElement(By.xpath(".//div[contains(@class,'combo-p')]/div[contains(@class," +
-                "'panel-body-noheader')]/div[text()='瓶']"));
-        ElementKeyword.sendKeys(By.xpath(byBaseUnitBarcode), goods.getBaseBarcode());
+            // 选择"瓶"基本单位
+            ElementKeyword.clickElement(By.xpath(byBaseUint));
+            ElementKeyword.clickElement(By.xpath(".//div[contains(@class,'combo-p')]/div[contains(@class," +
+                    "'panel-body-noheader')]/div[text()='瓶']"));
+            ElementKeyword.sendKeys(By.xpath(byBaseUnitBarcode), goods.getBaseBarcode());
 //        ElementKeyword.clickComboBox(ElementKeyword.findElement(By.xpath(byPkgUnit)), "包", false);
-        // 选择"箱"大包单位(因为初始化数据小包、大包均有"箱"单位，删除小包单位"箱")
-        ElementKeyword.clickElement(By.xpath(byPkgUnit));
-        ElementKeyword.clickElement(By.xpath(".//div[contains(@class,'combo-p')]/div[contains(@class," +
-                "'panel-body-noheader')]/div[text()='箱']"));
-        ElementKeyword.sendKeys(By.xpath(byPkgUnitBarcode), goods.getPkgBarcode());
-        ElementKeyword.sendKeys(By.xpath(byBaseWholeSale), String.valueOf(goods.getBaseWholesale()));
-        ElementKeyword.sendKeys(By.xpath(byUnitFactor), String.valueOf(goods.getUnitFactor()));
-        ElementKeyword.sendKeys(By.xpath(byPkgWholeSale), String.valueOf(goods.getPkgWholesale()));
-        ElementKeyword.clickElement(By.xpath(bySaveButton));
-        LogUtils.info("新增商品档案[" + goods.getName() + "]成功.");
+            // 选择"箱"大包单位(因为初始化数据小包、大包均有"箱"单位，删除小包单位"箱")
+            ElementKeyword.clickElement(By.xpath(byPkgUnit));
+            ElementKeyword.clickElement(By.xpath(".//div[contains(@class,'combo-p')]/div[contains(@class," +
+                    "'panel-body-noheader')]/div[text()='箱']"));
+            ElementKeyword.sendKeys(By.xpath(byPkgUnitBarcode), goods.getPkgBarcode());
+            ElementKeyword.sendKeys(By.xpath(byBaseWholeSale), String.valueOf(goods.getBaseWholesale()));
+            ElementKeyword.sendKeys(By.xpath(byUnitFactor), String.valueOf(goods.getUnitFactor()));
+            ElementKeyword.sendKeys(By.xpath(byPkgWholeSale), String.valueOf(goods.getPkgWholesale()));
+//        ElementKeyword.clickElement(By.xpath(bySaveButton));
+            PageKeyword.clickPageButton("保存");
+            LogUtils.info("新增商品档案[" + goods.getName() + "]成功.");
+        }
     }
 
-    public static void editGoods(String targetGoodsType, String goodsName, Goods afterGoods) {
+    /**
+     * @param targetGoodsType
+     * @param targetGoodsName
+     * @param afterGoods
+     */
+    public static void editGoods(String targetGoodsType, String targetGoodsName, Goods afterGoods) {
         GoodsTypeKeyword.selectSpecifiedGoodsType(targetGoodsType);
+        ElementKeyword.clickElement(By.xpath(".//tr[contains(@id,'datagrid-row-r1')]/td[1]/div[text()='" +
+                targetGoodsName + "']/parent::td/following-sibling::td[7]/div/span[1]/a"));
     }
 
+    /**
+     * 删除商品档案
+     *
+     * @param targetGoodsType 指定商品类别名称
+     * @param targetGoodsName 指定需要删除的商品档案名称
+     */
+    public static void deleteGoods(String targetGoodsType, String targetGoodsName) {
+        if (checkIsGoodsExists(targetGoodsName)) {
+            GoodsTypeKeyword.selectSpecifiedGoodsType(targetGoodsType);
+            ElementKeyword.clickElement(By.xpath(".//tr[contains(@id,'datagrid-row-r1')]/td[1]/div[text()='" +
+                    targetGoodsName + "']/parent::td/following-sibling::td[7]/div/span[2]/a"));
+            ElementKeyword.findElement(By.xpath(byDeleteWindow));
+            PageKeyword.clickPageButton("确认");
+            LogUtils.info("删除商品[" + targetGoodsName + "]成功，商品原存在于商品类别[" + targetGoodsType + "].");
+        }
+    }
+
+    /**
+     * 检查商品档案名称是否存在
+     *
+     * @param goodsName 品牌名称
+     * @return 存在相同名称的商品档案，则返回True，否则返回False
+     */
     public static boolean checkIsGoodsExists(String goodsName) {
         try {
             // 拷贝当前生效的driver到临时driver
             WebDriver tempDriver = Browsers.getActiveBrowser().getDriver();
-            tempDriver.findElement(By.xpath(""));
             // 如果寻找元素没有报错,则说明该商品档案存在,返回True,否则False
-            tempDriver.findElement(By.xpath(".//span[text()='" + goodsName + "']"));
+            tempDriver.findElement(By.xpath(".//tr[contains(@id,'datagrid-row-r1')]/td[1]/div[text()='" + goodsName +
+                    "']"));
             return true;
         } catch (Exception e) {
             LogUtils.info("商品档案[" + goodsName + "]不存在.");
             return false;
         }
     }
-
 }
