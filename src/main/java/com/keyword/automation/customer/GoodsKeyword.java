@@ -17,14 +17,14 @@ public class GoodsKeyword {
 
     }
 
-    // 添加商品档案按钮
-    private static final String byAddButton = ".//span[text()='添加']";
-    // 批量删除商品档案按钮
-    private static final String byBatchDeleteButton = ".//span[text()='批量删除']";
-    // 导入商品档案按钮
-    private static final String byImportButton = ".//span[text()='导入']";
-    // 导出商品档案按钮
-    private static final String byExportButton = ".//span[text()='导出']";
+    //    // 添加商品档案按钮
+//    private static final String byAddButton = ".//span[text()='添加']";
+//    // 批量删除商品档案按钮
+//    private static final String byBatchDeleteButton = ".//span[text()='批量删除']";
+//    // 导入商品档案按钮
+//    private static final String byImportButton = ".//span[text()='导入']";
+//    // 导出商品档案按钮
+//    private static final String byExportButton = ".//span[text()='导出']";
     // 添加商品档案弹出窗口
     private static final String byAddWindow = ".//div[@id='docDialog']/parent::div";
     // 新增商品档案弹出框--商品名称xpath
@@ -58,19 +58,19 @@ public class GoodsKeyword {
     // 新增商品档案弹出框--大包单位批发价xpath
     private static final String byPkgWholeSale = ".//input[@id='pkgWholesale']/following-sibling::span/input[1]";
     // 新增商品档案弹出框--保存按钮xpath
-    private static final String bySaveButton = ".//span[text()='保存']";
-    // 新增商品档案弹出框--保存并新增按钮xpath
-    private static final String bySaveAndAddButton = ".//span[text()='保存并新增']";
-    // 新增商品档案弹出框--关闭按钮xpath
-    private static final String byCloseButton = ".//span[text()='关闭']";
+//    private static final String bySaveButton = ".//span[text()='保存']";
+//    // 新增商品档案弹出框--保存并新增按钮xpath
+//    private static final String bySaveAndAddButton = ".//span[text()='保存并新增']";
+//    // 新增商品档案弹出框--关闭按钮xpath
+//    private static final String byCloseButton = ".//span[text()='关闭']";
     // 删除商品档案弹出窗口
     private static final String byDeleteWindow = ".//div[text()='确认删除？']/parent::div/parent::div";
 
     /**
      * 在指定商品下添加商品档案(正常状态)
      *
-     * @param targetGoodsType 指定商品类别
-     * @param goods           商品档案对象
+     * @param targetGoodsType  指定商品类别
+     * @param goods            商品档案对象
      */
     public static void addGoods(String targetGoodsType, Goods goods) {
         if (!checkIsGoodsExists(goods.getName())) {
@@ -79,21 +79,15 @@ public class GoodsKeyword {
             PageKeyword.clickPageButton("添加");
             ElementKeyword.findElement(By.xpath(byAddWindow));
             ElementKeyword.sendKeys(By.xpath(byGoodsName), goods.getName());
-//        ElementKeyword.clickComboBox(ElementKeyword.findElement(By.xpath(byBaseUint)), "瓶", false);
-            // 选择"瓶"基本单位
-            ElementKeyword.clickElement(By.xpath(byBaseUint));
-            ElementKeyword.clickElement(By.xpath(".//div[contains(@class,'combo-p')]/div[contains(@class," +
-                    "'panel-body-noheader')]/div[text()='瓶']"));
+            PageKeyword.clickSelectOptions(By.xpath(byBaseUint), "瓶");
             ElementKeyword.sendKeys(By.xpath(byBaseUnitBarcode), goods.getBaseBarcode());
-//        ElementKeyword.clickComboBox(ElementKeyword.findElement(By.xpath(byPkgUnit)), "包", false);
-            // 选择"箱"大包单位(因为初始化数据小包、大包均有"箱"单位，删除小包单位"箱")
-            ElementKeyword.clickElement(By.xpath(byPkgUnit));
-            ElementKeyword.clickElement(By.xpath(".//div[contains(@class,'combo-p')]/div[contains(@class," +
-                    "'panel-body-noheader')]/div[text()='箱']"));
-            ElementKeyword.sendKeys(By.xpath(byPkgUnitBarcode), goods.getPkgBarcode());
+            if (goods.getUnitFactor() != 0) {
+                PageKeyword.clickSelectOptions(By.xpath(byPkgUnit), "箱");
+                ElementKeyword.sendKeys(By.xpath(byPkgUnitBarcode), goods.getPkgBarcode());
+                ElementKeyword.sendKeys(By.xpath(byUnitFactor), String.valueOf(goods.getUnitFactor()));
+                ElementKeyword.sendKeys(By.xpath(byPkgWholeSale), String.valueOf(goods.getPkgWholesale()));
+            }
             ElementKeyword.sendKeys(By.xpath(byBaseWholeSale), String.valueOf(goods.getBaseWholesale()));
-            ElementKeyword.sendKeys(By.xpath(byUnitFactor), String.valueOf(goods.getUnitFactor()));
-            ElementKeyword.sendKeys(By.xpath(byPkgWholeSale), String.valueOf(goods.getPkgWholesale()));
 //        ElementKeyword.clickElement(By.xpath(bySaveButton));
             PageKeyword.clickPageButton("保存");
             LogUtils.info("新增商品档案[" + goods.getName() + "]成功.");
@@ -101,9 +95,11 @@ public class GoodsKeyword {
     }
 
     /**
-     * @param targetGoodsType
-     * @param targetGoodsName
-     * @param afterGoods
+     * 修改商品档案
+     *
+     * @param targetGoodsType 指定商品类别名称
+     * @param targetGoodsName 指定商品档案名称
+     * @param afterGoods      修改后的商品档案对象
      */
     public static void editGoods(String targetGoodsType, String targetGoodsName, Goods afterGoods) {
         GoodsTypeKeyword.selectSpecifiedGoodsType(targetGoodsType);

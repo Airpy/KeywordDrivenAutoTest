@@ -128,6 +128,18 @@ public class BrandKeyword {
     }
 
     /**
+     * 从数据库中捞出数据与操作数据比对
+     *
+     * @param brand 操作数据--品牌对象
+     * @param cid   批发商编号
+     * @return 如果相同则返回True, 否则返回False
+     */
+    public static boolean checkDataFromDB(Brand brand, String cid) {
+        // 后面维护
+        return true;
+    }
+
+    /**
      * 检查品牌名称是否存在
      *
      * @param brandName 品牌名称
