@@ -61,6 +61,7 @@ public class PageKeyword {
      */
     public static void closeTag(String tagName) {
         BrowserKeyword.switchToDefaultFrameOrWindow();
-        ElementKeyword.clickElement(By.xpath(".//span[text()='" + tagName + "']/parent::a/following-sibling::a"));
+        ElementKeyword.clickElement(By.xpath(".//span[contains(text()," + tagName + ")]/parent::a/following-sibling::a"));
+//        ElementKeyword.clickElement(By.xpath(".//span[text()='" + tagName + "']/parent::a/following-sibling::a"));
     }
 }

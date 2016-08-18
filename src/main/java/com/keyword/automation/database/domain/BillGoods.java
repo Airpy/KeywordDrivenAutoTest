@@ -15,7 +15,7 @@ public class BillGoods {
     // 单位换算
     private String unitFactorName;
     // 商品数量
-    private int quantity;
+    private String quantity;
     // 实价
     private double realPrice;
     // 金额
@@ -25,11 +25,28 @@ public class BillGoods {
     // 商品备注
     private String goodsRemark;
 
-    public BillGoods(String goodsName, String currUnitName, int quantity, double realPrice, String goodsRemark) {
+    public BillGoods() {
+
+    }
+
+    public BillGoods(String goodsName, String currUnitName, String quantity, double realPrice, String goodsRemark) {
         this.goodsName = goodsName;
         this.currUnitName = currUnitName;
         this.quantity = quantity;
         this.realPrice = realPrice;
+        this.goodsRemark = goodsRemark;
+    }
+
+    public BillGoods(String goodsName, String barcode, String currUnitName, String unitFactorName, String quantity,
+                     double realPrice, double subAmount, String goodsRemark) {
+        this.goodsName = goodsName;
+        this.barcode = barcode;
+        this.currUnitName = currUnitName;
+        this.unitFactorName = unitFactorName;
+        this.quantity = quantity;
+        this.realPrice = realPrice;
+        this.subAmount = subAmount;
+//        this.stockQuantity = stockQuantity;
         this.goodsRemark = goodsRemark;
     }
 
@@ -65,11 +82,11 @@ public class BillGoods {
         this.unitFactorName = unitFactorName;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
