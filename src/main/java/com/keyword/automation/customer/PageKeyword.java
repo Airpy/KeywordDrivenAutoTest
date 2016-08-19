@@ -3,9 +3,12 @@ package com.keyword.automation.customer;
 import com.keyword.automation.action.BrowserKeyword;
 import com.keyword.automation.action.ElementKeyword;
 import com.keyword.automation.base.utils.LogUtils;
+import com.keyword.automation.bean.BillFooter;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 自定义网页关键字
@@ -38,6 +41,54 @@ public class PageKeyword {
     }
 
     /**
+     * 关闭标签页
+     *
+     * @param tagName 指定标签页名称
+     */
+    public static void closeTag(String tagName) {
+        BrowserKeyword.switchToDefaultFrameOrWindow();
+        ElementKeyword.clickElement(By.xpath(".//span[contains(text()," + tagName + ")" +
+                "]/parent::a/following-sibling::a"));
+    }
+
+    /**
+     * @param targetName 单据页面元素标识，如单据头部分：客户、仓库，单据尾部分：优惠后金额、剩余金额等
+     * @return 该元素的By的定位方式
+     */
+    public static By getBillPageElement(String targetName) {
+        return By.xpath(".//label[text()='" + targetName + "']/following-sibling::span/input[1]");
+    }
+
+    /**
+     * 选择收款账户并返回有哪些账户类型已经被选择
+     *
+     * @param billFooter 单据尾传入数据对象
+     * @return 账户支付类型列表
+     */
+    public static List<String> selectAccountType(BillFooter billFooter) {
+        List<String> accountTypeList = new ArrayList<String>();
+        Map<String, Double> accountMap = billFooter.getAccountMap();
+        for (Map.Entry<String, Double> entry : accountMap.entrySet()) {
+            if (entry.getValue() != 0.0) {
+                accountTypeList.add(entry.getKey());
+            }
+        }
+        if (accountTypeList.size() <= 2) {
+            ElementKeyword.clickElement(By.xpath(".//a[text()='更改收款账户']"));
+            ElementKeyword.findElement(By.xpath(".//div[@id='dlgAccount']/parent::div"));
+            for (String accountType : accountTypeList) {
+                By bySelect = By.xpath(".//div[text()='" + accountType + "']");
+                ElementKeyword.clickElement(bySelect);
+            }
+            PageKeyword.clickPageButton("选择并关闭");
+        } else {
+            throw new RuntimeException("最多选择两种支付方式.您已经选择了:[" + accountTypeList.size() + "].");
+        }
+        return accountTypeList;
+    }
+
+
+    /**
      * 验证操作是否成功(已经测试过品牌菜单、商品档案菜单)
      *
      * @param targetMsg 目标标志性成功信息
@@ -52,16 +103,5 @@ public class PageKeyword {
             LogUtils.info("商品类别[" + targetMsg + "]不存在.");
             return false;
         }
-    }
-
-    /**
-     * 关闭标签页
-     *
-     * @param tagName 指定标签页名称
-     */
-    public static void closeTag(String tagName) {
-        BrowserKeyword.switchToDefaultFrameOrWindow();
-        ElementKeyword.clickElement(By.xpath(".//span[contains(text()," + tagName + ")]/parent::a/following-sibling::a"));
-//        ElementKeyword.clickElement(By.xpath(".//span[text()='" + tagName + "']/parent::a/following-sibling::a"));
     }
 }

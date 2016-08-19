@@ -57,7 +57,7 @@ public class Test002_Sale_TestSaleBill {
 
     @Test
     // 测试新增销售单
-    public void testAddSaleBill() {
+    public void test_AddSaleBill() {
         LogUtils.info("--------------------测试添加销售单--------------------");
         String billNo = BillKeyword.addSaleBill(bill);
         BillKeyword.approveBill("sale", billNo);
