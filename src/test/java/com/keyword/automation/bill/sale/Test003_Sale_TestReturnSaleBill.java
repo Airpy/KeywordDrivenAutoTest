@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 入口:销售-制作单据-销售单<br/>
+ * 入口:销售-制作单据-退货单<br/>
  * 主要测试功能:
- * 1、新增销售单
+ * 1、新增退货单
  *
  * @author Amio_
  */
-public class Test002_Sale_TestSaleBill {
+public class Test003_Sale_TestReturnSaleBill {
     private static List<BillCell> billCellList = new ArrayList<BillCell>();
     private static BillHeader billHeader = new BillHeader("测试客户", null, "测试仓库", "刘振峰", null, false, "这是一个单据备注");
     private static BillCell billCellA_BASE = new BillCell("商品档案A", "瓶", "10", 8.80, 88.00, "这是商品A小包单位备注");
@@ -40,19 +40,19 @@ public class Test002_Sale_TestSaleBill {
 
     @Before
     public void setUp() {
-        LogUtils.info("--------------------测试预处理:登录系统并跳转销售单界面--------------------");
-        String byBillFrame = ".//iframe[@id='erp/bill/sale/load/add/0?type=0']";
+        LogUtils.info("--------------------测试预处理:登录系统并跳转退货单界面--------------------");
+        String byBillFrame = ".//iframe[@id='erp/bill/sale/load/add/0?type=1']";
         LoginKeyword.loginSystem();
-        MenuKeyword.selectMenu("销售", "销售单");
+        MenuKeyword.selectMenu("销售", "退货单");
         BrowserKeyword.switchToFrame(By.xpath(byBillFrame));
     }
 
     @Test
     // 测试新增销售单
-    public void test_AddSaleBill() {
-        LogUtils.info("--------------------测试添加销售单--------------------");
-        String billNo = BillKeyword.addBill("销售单", billWhole);
-        BillKeyword.approveBill("销售单", billNo);
+    public void test_AddReturnSaleBill() {
+        LogUtils.info("--------------------测试添加退货单--------------------");
+        String billNo = BillKeyword.addBill("退货单", billWhole);
+        BillKeyword.approveBill("退货单", billNo);
     }
 
 

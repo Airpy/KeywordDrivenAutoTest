@@ -43,24 +43,20 @@ public class BillFooter {
      * 构造方法<br/>
      * 用于:销售单/退货单/采购单/采购退货单/
      *
-     * @param discountAmount      优惠金额
-     * @param afterDiscountAmount 优惠后金额
-     * @param cash                现金
-     * @param bank                银行
-     * @param prePay              预收款
-     * @param others              其他
-     * @param leftAmount          欠款金额/剩余金额
+     * @param discountAmount 优惠金额
+     * @param cash           现金
+     * @param bank           银行
+     * @param prePay         预收款
+     * @param preCharge      预付款
+     * @param others         其他
      */
-    public BillFooter(double discountAmount, double afterDiscountAmount, double cash, double bank, double prePay,
-                      double preCharge, double others, double leftAmount) {
+    public BillFooter(double discountAmount, double cash, double bank, double prePay, double preCharge, double others) {
         this.discountAmount = discountAmount;
-        this.afterDiscountAmount = afterDiscountAmount;
         this.cash = cash;
         this.bank = bank;
         this.prePay = prePay;
         this.preCharge = preCharge;
         this.others = others;
-        this.leftAmount = leftAmount;
     }
 
     /**
@@ -84,18 +80,14 @@ public class BillFooter {
      * 构造方法<br/>
      * 用于:收款单/付款单
      *
-     * @param nowDiscountAmount 本次优惠金额
-     * @param cash              现金
-     * @param bank              银行
-     * @param others            其他
-     * @param leftAmount        欠款金额/剩余金额
+     * @param cash   现金
+     * @param bank   银行
+     * @param others 其他
      */
-    public BillFooter(double nowDiscountAmount, double cash, double bank, double others, double leftAmount) {
+    public BillFooter(double cash, double bank, double others) {
         this.cash = cash;
         this.bank = bank;
         this.others = others;
-        this.leftAmount = leftAmount;
-        this.nowDiscountAmount = nowDiscountAmount;
     }
 
     /**
@@ -233,13 +225,5 @@ public class BillFooter {
                 ", remark='" + remark + '\'' +
                 ", accountMap=" + accountMap +
                 '}';
-    }
-
-    public static void main(String[] args) {
-        BillFooter billFooter = new BillFooter(1.1, 2.2, 3.3, 4.4, 5.5);
-        Double aaa = billFooter.getAfterDiscountAmount();
-        System.out.println(billFooter.getBank());
-        System.out.println(aaa);
-        System.out.println(billFooter.toString());
     }
 }

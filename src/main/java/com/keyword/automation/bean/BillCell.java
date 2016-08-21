@@ -14,16 +14,16 @@ public class BillCell {
     private String currUnitName;
     // 单位换算
     private String currUnitFactorName;
-    // 商品数量
-    private int quantity;
+    // 商品数量(因为开单时输入为数字,检查数据时,页面加上了单位,故改为String类型)
+    private String quantity;
     // 商品价格(实价)
     private double realPrice;
     // 商品金额(实价*数量)
     private double subAmount;
     // 库存数量
     private double stockQuantity;
-    // 商品备注
-    private String goodsRemark;
+    // 备注
+    private String remark;
     // 单价
     private double currWholesale;
     // 出库库存数量
@@ -48,9 +48,21 @@ public class BillCell {
     private double profitQuantity;
     // 盘亏数量
     private double lossQuantity;
+    // 本次优惠金额
+    private double nowDiscountAmount;
+    // 本次收款金额/本次付款金额
+    private double nowPaidAmount;
+    // 费用类别
+    private String costTypeName;
+    // 费用支出金额
+    private double expenditureAmount;
+    // 费用支出客户
+    private String consumerName;
     // 操作
     private String opt;
 
+    public BillCell() {
+    }
 
     /**
      * 构造方法<br/>
@@ -61,27 +73,27 @@ public class BillCell {
      * @param quantity     商品数量
      * @param realPrice    商品价格
      * @param subAmount    商品金额(实价*数量)
-     * @param goodsRemark  库存数量
+     * @param remark       库存数量
      */
-    public BillCell(String goodsName, String currUnitName, int quantity, double realPrice, double subAmount,
-                    String goodsRemark) {
+    public BillCell(String goodsName, String currUnitName, String quantity, double realPrice, double subAmount, String
+            remark) {
         this.goodsName = goodsName;
         this.currUnitName = currUnitName;
         this.quantity = quantity;
         this.realPrice = realPrice;
         this.subAmount = subAmount;
-        this.goodsRemark = goodsRemark;
+        this.remark = remark;
     }
 
     /**
      * 构造方法<br/>
-     * 用于:调拨单/盘点盈亏单/破损单
+     * 用于:调拨单/盘点盈亏单/报损单
      *
      * @param goodsName    商品名称
      * @param currUnitName 单位
      * @param quantity     商品数量
      */
-    public BillCell(String goodsName, String currUnitName, int quantity) {
+    public BillCell(String goodsName, String currUnitName, String quantity) {
         this.goodsName = goodsName;
         this.currUnitName = currUnitName;
         this.quantity = quantity;
@@ -106,9 +118,21 @@ public class BillCell {
      * @param pkgQuantity  大包单位数量
      * @param baseQuantity 基本单位数量
      */
-    public BillCell(double pkgQuantity, double baseQuantity) {
+    public BillCell(int pkgQuantity, double baseQuantity) {
         this.pkgQuantity = pkgQuantity;
         this.baseQuantity = baseQuantity;
+    }
+
+    /**
+     * 构造方法<br/>
+     * 用于:收款单
+     *
+     * @param nowDiscountAmount 本次优惠金额
+     * @param nowPaidAmount     本次收款金额/付款金额
+     */
+    public BillCell(double nowDiscountAmount, double nowPaidAmount) {
+        this.nowDiscountAmount = nowDiscountAmount;
+        this.nowPaidAmount = nowPaidAmount;
     }
 
     /**
@@ -157,11 +181,11 @@ public class BillCell {
         this.currUnitFactorName = currUnitFactorName;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
@@ -189,12 +213,12 @@ public class BillCell {
         this.stockQuantity = stockQuantity;
     }
 
-    public String getGoodsRemark() {
-        return goodsRemark;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setGoodsRemark(String goodsRemark) {
-        this.goodsRemark = goodsRemark;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public double getCurrWholesale() {
@@ -293,6 +317,46 @@ public class BillCell {
         this.lossQuantity = lossQuantity;
     }
 
+    public double getNowDiscountAmount() {
+        return nowDiscountAmount;
+    }
+
+    public void setNowDiscountAmount(double nowDiscountAmount) {
+        this.nowDiscountAmount = nowDiscountAmount;
+    }
+
+    public double getNowPaidAmount() {
+        return nowPaidAmount;
+    }
+
+    public void setNowPaidAmount(double nowPaidAmount) {
+        this.nowPaidAmount = nowPaidAmount;
+    }
+
+    public String getCostTypeName() {
+        return costTypeName;
+    }
+
+    public void setCostTypeName(String costTypeName) {
+        this.costTypeName = costTypeName;
+    }
+
+    public double getExpenditureAmount() {
+        return expenditureAmount;
+    }
+
+    public void setExpenditureAmount(double expenditureAmount) {
+        this.expenditureAmount = expenditureAmount;
+    }
+
+    public String getConsumerName() {
+        return consumerName;
+    }
+
+    public void setConsumerName(String consumerName) {
+        this.consumerName = consumerName;
+    }
+
     public String getOpt() {
         return opt;
     }
@@ -312,7 +376,7 @@ public class BillCell {
                 ", realPrice=" + realPrice +
                 ", subAmount=" + subAmount +
                 ", stockQuantity=" + stockQuantity +
-                ", goodsRemark='" + goodsRemark + '\'' +
+                ", goodsRemark='" + remark + '\'' +
                 ", currWholesale=" + currWholesale +
                 ", outStockQuantity=" + outStockQuantity +
                 ", inStockQuantity=" + inStockQuantity +
@@ -325,6 +389,11 @@ public class BillCell {
                 ", baseQuantity=" + baseQuantity +
                 ", profitQuantity=" + profitQuantity +
                 ", lossQuantity=" + lossQuantity +
+                ", nowDiscountAmount=" + nowDiscountAmount +
+                ", nowPaidAmount=" + nowPaidAmount +
+                ", costTypeName=" + costTypeName +
+                ", expenditureAmount=" + expenditureAmount +
+                ", consumerName=" + consumerName +
                 ", opt='" + opt + '\'' +
                 '}';
     }

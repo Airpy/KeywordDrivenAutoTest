@@ -1,8 +1,4 @@
-package com.keyword.automation.database.domain;
-
-import com.keyword.automation.bean.BillCell;
-import com.keyword.automation.bean.BillFooter;
-import com.keyword.automation.bean.BillHeader;
+package com.keyword.automation.bean;
 
 import java.util.List;
 

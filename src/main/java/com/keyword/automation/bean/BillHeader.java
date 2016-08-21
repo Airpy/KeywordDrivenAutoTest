@@ -16,7 +16,7 @@ public class BillHeader {
     private String workOperName;
     // 交易日期/调拨日期/开单日期/入款日期
     private String workTime;
-    // 是否按最小单位销售/采购/盘点/破损
+    // 是否按最小单位销售/采购/盘点/报损
     private boolean isBaseUnit;
     // 单据备注
     private String billRemark;
@@ -91,7 +91,7 @@ public class BillHeader {
 
     /**
      * 构造方法<br/>
-     * 用于:盘点盈亏单/破损单
+     * 用于:盘点盈亏单/报损单
      *
      * @param warehouseName 仓库名称
      * @param workOperName  业务员名称/经办人名称/盘点人员名称

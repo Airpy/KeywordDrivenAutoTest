@@ -61,8 +61,8 @@ public class LoginKeyword {
     }
 
     private static boolean isLoginSuccess() {
-        String titleQQ = ElementKeyword.getAttribute(By.className("icon-qq"), "title");
-        if (titleQQ.equals("请加为好友")) {
+        String loginName = ElementKeyword.getText(By.xpath(".//a[@id='mb']"));
+        if (loginName.equals("刘振峰")) {
             LogUtils.info("登录系统成功.");
             return true;
         } else {
