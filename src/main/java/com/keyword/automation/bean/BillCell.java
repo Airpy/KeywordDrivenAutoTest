@@ -20,16 +20,16 @@ public class BillCell {
     private double realPrice;
     // 商品金额(实价*数量)
     private double subAmount;
-    // 库存数量
-    private double stockQuantity;
+    // 库存数量(因为开单时输入为数字,检查数据时,页面加上了单位,故改为String类型)
+    private String stockQuantity;
     // 备注
     private String remark;
     // 单价
     private double currWholesale;
-    // 出库库存数量
-    private double outStockQuantity;
-    // 入库库存数量
-    private double inStockQuantity;
+    // 出库库存数量(因为开单时输入为数字,检查数据时,页面加上了单位,故改为String类型)
+    private String outStockQuantity;
+    // 入库库存数量(因为开单时输入为数字,检查数据时,页面加上了单位,故改为String类型)
+    private String inStockQuantity;
     // 成本价
     private double costPrice;
     // 成本金额
@@ -205,11 +205,11 @@ public class BillCell {
         this.subAmount = subAmount;
     }
 
-    public double getStockQuantity() {
+    public String getStockQuantity() {
         return stockQuantity;
     }
 
-    public void setStockQuantity(double stockQuantity) {
+    public void setStockQuantity(String stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
 
@@ -229,19 +229,19 @@ public class BillCell {
         this.currWholesale = currWholesale;
     }
 
-    public double getOutStockQuantity() {
+    public String getOutStockQuantity() {
         return outStockQuantity;
     }
 
-    public void setOutStockQuantity(double outStockQuantity) {
+    public void setOutStockQuantity(String outStockQuantity) {
         this.outStockQuantity = outStockQuantity;
     }
 
-    public double getInStockQuantity() {
+    public String getInStockQuantity() {
         return inStockQuantity;
     }
 
-    public void setInStockQuantity(double inStockQuantity) {
+    public void setInStockQuantity(String inStockQuantity) {
         this.inStockQuantity = inStockQuantity;
     }
 

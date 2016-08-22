@@ -191,7 +191,6 @@ public class PageKeyword {
             } else if (targetField.equalsIgnoreCase("currUnitName")) {
                 billCell.setCurrUnitName(ElementKeyword.getText(byField));
             } else if (targetField.equalsIgnoreCase("currUnitFactorName")) {
-                // 小包单位这个单元格为空,必须用临时driver来找元素
                 billCell.setCurrUnitFactorName(driver.findElement(byField).getText());
             } else if (targetField.equalsIgnoreCase("quantity")) {
                 billCell.setQuantity(ElementKeyword.getText(byField));
@@ -203,6 +202,22 @@ public class PageKeyword {
                 billCell.setSubAmount(Double.valueOf(ElementKeyword.getText(byField)));
             } else if (targetField.equalsIgnoreCase("remark")) {
                 billCell.setRemark(ElementKeyword.getText(byField));
+            } else if (targetField.equalsIgnoreCase("stockQuantity")) {
+                billCell.setStockQuantity(ElementKeyword.getText(byField));
+            } else if (targetField.equalsIgnoreCase("currWholesale")) {
+                billCell.setCurrWholesale(Double.valueOf(ElementKeyword.getText(byField)));
+            } else if (targetField.equalsIgnoreCase("outStockQuantity")) {
+                billCell.setOutStockQuantity(ElementKeyword.getText(byField));
+            } else if (targetField.equalsIgnoreCase("inStockQuantity")) {
+                billCell.setInStockQuantity(ElementKeyword.getText(byField));
+            } else if (targetField.equalsIgnoreCase("costPrice")) {
+                billCell.setCostPrice(Double.valueOf(driver.findElement(byField).getText()));
+            } else if (targetField.equalsIgnoreCase("costAmount")) {
+                billCell.setCostAmount(Double.valueOf(driver.findElement(byField).getText()));
+            } else if (targetField.equalsIgnoreCase("origCostPrice")) {
+                billCell.setOrigCostPrice(Double.valueOf(ElementKeyword.getText(byField)));
+            } else if (targetField.equalsIgnoreCase("newCostPrice")) {
+                billCell.setNewCostPrice(Double.valueOf(ElementKeyword.getText(byField)));
             } else {
                 throw new RuntimeException("传入的单据列标识错误");
             }

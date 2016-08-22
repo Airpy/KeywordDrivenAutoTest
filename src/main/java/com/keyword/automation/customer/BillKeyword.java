@@ -294,21 +294,59 @@ public class BillKeyword {
      */
     private static List<BillCell> getBillCellDetailData(String billType) {
         List<BillCell> billCellList = new ArrayList<BillCell>();
+        List<String> targetFieldList = new ArrayList<String>();
         int count = PageKeyword.getCellRowsCount();
+        if (billType.equals("销售订单") || billType.equals("采购单") || billType.equals("采购退货单")) {
+            targetFieldList.add("goodsName");
+            targetFieldList.add("barcode");
+            targetFieldList.add("currUnitName");
+            targetFieldList.add("currUnitFactorName");
+            targetFieldList.add("quantity");
+            targetFieldList.add("realPrice");
+            targetFieldList.add("subAmount");
+            targetFieldList.add("remark");
+        } else if (billType.equals("销售单") || billType.equals("退货单")) {
+            targetFieldList.add("goodsName");
+            targetFieldList.add("barcode");
+            targetFieldList.add("currUnitName");
+            targetFieldList.add("currUnitFactorName");
+            targetFieldList.add("quantity");
+            targetFieldList.add("realPrice");
+            targetFieldList.add("subAmount");
+            targetFieldList.add("stockQuantity");
+            targetFieldList.add("remark");
+        } else if (billType.equals("采购订单")) {
+            targetFieldList.add("goodsName");
+            targetFieldList.add("barcode");
+            targetFieldList.add("currUnitName");
+            targetFieldList.add("currUnitFactorName");
+            targetFieldList.add("quantity");
+            targetFieldList.add("realPrice");
+            targetFieldList.add("subAmount");
+        } else if (billType.equals("调拨单")) {
+            targetFieldList.add("goodsName");
+            targetFieldList.add("barcode");
+            targetFieldList.add("currUnitName");
+            targetFieldList.add("currUnitFactorName");
+            targetFieldList.add("quantity");
+            targetFieldList.add("currWholesale");
+            targetFieldList.add("outStockQuantity");
+            targetFieldList.add("inStockQuantity");
+        } else if (billType.equals("盘点盈亏单") || billType.equals("报损单")) {
+            targetFieldList.add("goodsName");
+            targetFieldList.add("currUnitName");
+            targetFieldList.add("currUnitFactorName");
+            targetFieldList.add("quantity");
+            targetFieldList.add("costPrice");
+            targetFieldList.add("costAmount");
+        } else if (billType.equals("成本调价单")) {
+            targetFieldList.add("goodsName");
+            targetFieldList.add("currUnitName");
+            targetFieldList.add("origCostPrice");
+            targetFieldList.add("newCostPrice");
+        }
         for (int i = 0; i < count; i++) {
-            BillCell billCell = new BillCell();
-            if (billType.equals("销售订单")) {
-                List<String> targetFieldList = new ArrayList<String>();
-                targetFieldList.add("goodsName");
-                targetFieldList.add("barcode");
-                targetFieldList.add("currUnitName");
-                targetFieldList.add("currUnitFactorName");
-                targetFieldList.add("quantity");
-                targetFieldList.add("realPrice");
-                targetFieldList.add("subAmount");
-                targetFieldList.add("remark");
-                billCell = PageKeyword.getDataFromCell(i, targetFieldList);
-            }
+            BillCell billCell = PageKeyword.getDataFromCell(i, targetFieldList);
             billCellList.add(billCell);
         }
         return billCellList;
