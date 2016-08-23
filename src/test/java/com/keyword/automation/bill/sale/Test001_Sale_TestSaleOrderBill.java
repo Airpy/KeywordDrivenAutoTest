@@ -43,18 +43,16 @@ public class Test001_Sale_TestSaleOrderBill {
         LogUtils.info("--------------------测试预处理:登录系统并跳转销售订单界面--------------------");
         String byBillFrame = ".//iframe[@id='erp/bill/saleorder/load/add/0']";
         LoginKeyword.loginSystem();
-//        MenuKeyword.selectMenu("销售", "销售订单");
-//        BrowserKeyword.switchToFrame(By.xpath(byBillFrame));
+        MenuKeyword.selectMenu("销售", "销售订单");
+        BrowserKeyword.switchToFrame(By.xpath(byBillFrame));
     }
 
     @Test
     // 测试新增销售单
     public void test_AddSaleOrderBill() {
         LogUtils.info("--------------------测试添加销售订单--------------------");
-//        String billNo = BillKeyword.addBill("销售订单", billWhole);
-//        BillKeyword.approveBill("销售订单", billNo);
-        BillWhole billWhole = BillKeyword.getBillDetailData("销售订单", "XD1608210001");
-        System.out.println(billWhole.toString());
+        String billNo = BillKeyword.addBill("销售订单", billWhole);
+        BillKeyword.approveBill("销售订单", billNo);
     }
 
 

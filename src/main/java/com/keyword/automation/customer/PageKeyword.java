@@ -108,6 +108,42 @@ public class PageKeyword {
         }
     }
 
+    public static BillFooter checkSelectedAccountType(BillFooter billFooter) {
+        WebDriver driver = Browsers.getActiveBrowser().getDriver();
+        try {
+            driver.findElement(By.xpath(".//label[text()='现金']"));
+            billFooter.setCash(Double.valueOf(driver.findElement(getBillPageElement("现金")).getAttribute("value")));
+        } catch (Exception e) {
+            driver = Browsers.getActiveBrowser().getDriver();
+        }
+        try {
+            driver.findElement(By.xpath(".//label[text()='银行']"));
+            billFooter.setBank(Double.valueOf(driver.findElement(getBillPageElement("银行")).getAttribute("value")));
+        } catch (Exception e) {
+            driver = Browsers.getActiveBrowser().getDriver();
+        }
+        try {
+            driver.findElement(By.xpath(".//label[text()='其他']"));
+            billFooter.setOthers(Double.valueOf(driver.findElement(getBillPageElement("其他")).getAttribute("value")));
+        } catch (Exception e) {
+            driver = Browsers.getActiveBrowser().getDriver();
+        }
+        try {
+            driver.findElement(By.xpath(".//label[text()='预收款']"));
+            billFooter.setPrePay(Double.valueOf(driver.findElement(getBillPageElement("预收款")).getAttribute("value")));
+        } catch (Exception e) {
+            driver = Browsers.getActiveBrowser().getDriver();
+        }
+        try {
+            driver.findElement(By.xpath(".//label[text()='预付款']"));
+            billFooter.setPreCharge(Double.valueOf(driver.findElement(getBillPageElement("预付款")).getAttribute
+                    ("value")));
+        } catch (Exception e) {
+            driver = Browsers.getActiveBrowser().getDriver();
+        }
+        return billFooter;
+    }
+
     /**
      * 账户类型标识，如[现金/银行/其他/预收款]
      *

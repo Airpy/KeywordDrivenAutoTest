@@ -53,6 +53,8 @@ public class Test002_Sale_TestSaleBill {
         LogUtils.info("--------------------测试添加销售单--------------------");
         String billNo = BillKeyword.addBill("销售单", billWhole);
         BillKeyword.approveBill("销售单", billNo);
+        BillWhole billWhole = BillKeyword.getBillDetailData("销售单", billNo);
+        System.out.println(billWhole.toString());
     }
 
 

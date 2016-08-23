@@ -2,12 +2,14 @@ package com.keyword.automation.customer;
 
 import com.keyword.automation.action.BrowserKeyword;
 import com.keyword.automation.action.ElementKeyword;
+import com.keyword.automation.base.browser.Browsers;
 import com.keyword.automation.base.utils.LogUtils;
 import com.keyword.automation.bean.BillCell;
 import com.keyword.automation.bean.BillFooter;
 import com.keyword.automation.bean.BillHeader;
 import com.keyword.automation.bean.BillWhole;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +76,8 @@ public class BillKeyword {
         openBillDetail(billType, billNo);
         BillHeader billHeader = getBillHeaderDetailData(billType);
         List<BillCell> billCellList = getBillCellDetailData(billType);
-        return new BillWhole(billHeader, billCellList, null);
+        BillFooter billFooter = getBillFooterDetailData(billType);
+        return new BillWhole(billHeader, billCellList, billFooter);
     }
 
     /**
@@ -352,8 +355,35 @@ public class BillKeyword {
         return billCellList;
     }
 
-    public static BillFooter getBillFooterDetailData(String billType, String billNo) {
-        return null;
+    /**
+     * 获取指定单据类型的单据尾数据详情
+     *
+     * @param billType 单据类型,如输入[销售订单、销售单、调拨单等字符]
+     * @return 单据尾对象
+     */
+    private static BillFooter getBillFooterDetailData(String billType) {
+        WebDriver driver = Browsers.getActiveBrowser().getDriver();
+        BillFooter billFooter = new BillFooter();
+        if (billType.equals("销售单") || billType.equals("退货单") || billType.equals("采购单") || billType.equals("采购退货单")) {
+            billFooter.setDiscountAmount(Double.valueOf(ElementKeyword.getAttribute(PageKeyword.getBillPageElement
+                    ("优惠金额"), "value")));
+            billFooter.setAfterDiscountAmount(Double.valueOf(ElementKeyword.getAttribute(PageKeyword.getBillPageElement
+                    ("优惠后金额"), "value")));
+            billFooter.setLeftAmount(Double.valueOf(ElementKeyword.getAttribute(PageKeyword.getBillPageElement
+                    ("欠款金额"), "value")));
+        } else if (billType.equals("收款单") || billType.equals("付款单")) {
+            billFooter.setNowDiscountAmount(Double.valueOf(ElementKeyword.getAttribute(PageKeyword.getBillPageElement
+                    ("本次优惠金额"), "value")));
+            billFooter.setLeftAmount(Double.valueOf(ElementKeyword.getAttribute(PageKeyword.getBillPageElement
+                    ("剩余金额"), "value")));
+        } else if (billType.equals("费用支出")) {
+            billFooter.setPayType(ElementKeyword.getAttribute(PageKeyword.getBillPageElement("付款方式"), "value"));
+            billFooter.setPayAmount(Double.valueOf(ElementKeyword.getAttribute(PageKeyword.getBillPageElement("支出金额")
+                    , "value")));
+            billFooter.setRemark(driver.findElement(PageKeyword.getBillPageElement("备注")).getAttribute("value"));
+        }
+        billFooter = PageKeyword.checkSelectedAccountType(billFooter);
+        return billFooter;
     }
 
 
