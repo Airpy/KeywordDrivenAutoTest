@@ -41,10 +41,8 @@ public class Test003_Sale_TestReturnSaleBill {
     @Before
     public void setUp() {
         LogUtils.info("--------------------测试预处理:登录系统并跳转退货单界面--------------------");
-        String byBillFrame = ".//iframe[@id='erp/bill/sale/load/add/0?type=1']";
         LoginKeyword.loginSystem();
         MenuKeyword.selectMenu("销售", "退货单");
-        BrowserKeyword.switchToFrame(By.xpath(byBillFrame));
     }
 
     @Test

@@ -41,10 +41,8 @@ public class Test002_Sale_TestSaleBill {
     @Before
     public void setUp() {
         LogUtils.info("--------------------测试预处理:登录系统并跳转销售单界面--------------------");
-        String byBillFrame = ".//iframe[@id='erp/bill/sale/load/add/0?type=0']";
         LoginKeyword.loginSystem();
         MenuKeyword.selectMenu("销售", "销售单");
-        BrowserKeyword.switchToFrame(By.xpath(byBillFrame));
     }
 
     @Test

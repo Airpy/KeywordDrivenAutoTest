@@ -42,10 +42,8 @@ public class Test001_Purchase_TestPurchaseOrderBill {
     @Before
     public void setUp() {
         LogUtils.info("--------------------测试预处理:登录系统并跳转采购订单界面--------------------");
-        String byBillFrame = ".//iframe[@id='erp/bill/purchaseorder/load/add/0']";
         LoginKeyword.loginSystem();
         MenuKeyword.selectMenu("采购", "采购订单");
-        BrowserKeyword.switchToFrame(By.xpath(byBillFrame));
     }
 
     @Test

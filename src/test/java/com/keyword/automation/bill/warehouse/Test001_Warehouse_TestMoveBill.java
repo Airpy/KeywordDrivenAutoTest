@@ -41,10 +41,8 @@ public class Test001_Warehouse_TestMoveBill {
     @Before
     public void setUp() {
         LogUtils.info("--------------------测试预处理:登录系统并跳转调拨单界面--------------------");
-        String byBillFrame = ".//iframe[@id='erp/bill/move/load/add/0']";
         LoginKeyword.loginSystem();
         MenuKeyword.selectMenu("仓库", "调拨单");
-        BrowserKeyword.switchToFrame(By.xpath(byBillFrame));
     }
 
     @Test

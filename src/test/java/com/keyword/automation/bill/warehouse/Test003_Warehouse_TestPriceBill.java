@@ -42,10 +42,8 @@ public class Test003_Warehouse_TestPriceBill {
     @Before
     public void setUp() {
         LogUtils.info("--------------------测试预处理:登录系统并跳转成本调价单界面--------------------");
-        String byBillFrame = ".//iframe[@id='erp/bill/price/load/add/0']";
         LoginKeyword.loginSystem();
         MenuKeyword.selectMenu("仓库", "成本调价单");
-        BrowserKeyword.switchToFrame(By.xpath(byBillFrame));
     }
 
     @Test

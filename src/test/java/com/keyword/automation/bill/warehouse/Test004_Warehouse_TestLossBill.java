@@ -41,10 +41,8 @@ public class Test004_Warehouse_TestLossBill {
     @Before
     public void setUp() {
         LogUtils.info("--------------------测试预处理:登录系统并跳转报损单界面--------------------");
-        String byBillFrame = ".//iframe[@id='erp/bill/loss/load/add/0']";
         LoginKeyword.loginSystem();
         MenuKeyword.selectMenu("仓库", "报损单");
-        BrowserKeyword.switchToFrame(By.xpath(byBillFrame));
     }
 
     @Test

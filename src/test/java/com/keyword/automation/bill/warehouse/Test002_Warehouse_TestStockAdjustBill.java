@@ -41,10 +41,8 @@ public class Test002_Warehouse_TestStockAdjustBill {
     @Before
     public void setUp() {
         LogUtils.info("--------------------测试预处理:登录系统并跳转盘点盈亏单界面--------------------");
-        String byBillFrame = ".//iframe[@id='erp/bill/stockadjust/load/add/0']";
         LoginKeyword.loginSystem();
         MenuKeyword.selectMenu("仓库", "盘点盈亏单");
-        BrowserKeyword.switchToFrame(By.xpath(byBillFrame));
     }
 
     @Test

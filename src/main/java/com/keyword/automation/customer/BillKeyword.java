@@ -72,12 +72,55 @@ public class BillKeyword {
         LogUtils.info("红冲" + billType + "单据[" + billNo + "]成功.");
     }
 
+    /**
+     * 获取单据详情数据
+     *
+     * @param billType 单据类型,如输入[销售订单、销售单、调拨单等字符]
+     * @param billNo   指定单据编号
+     * @return 单据详情数据对象
+     */
     public static BillWhole getBillDetailData(String billType, String billNo) {
         openBillDetail(billType, billNo);
         BillHeader billHeader = getBillHeaderDetailData(billType);
         List<BillCell> billCellList = getBillCellDetailData(billType);
         BillFooter billFooter = getBillFooterDetailData(billType);
         return new BillWhole(billHeader, billCellList, billFooter);
+    }
+
+    public static String getSingleDataFromBill(int targetRow, String targetName) {
+        targetRow = targetRow - 1;
+        By byCell;
+        if (targetName.equals("条形码")) {
+            byCell = By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody/tr[@datagrid-row-index=" + targetRow +
+                    "]/td[@field='barcode']");
+        } else if (targetName.equals("单位换算")) {
+            byCell = By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody/tr[@datagrid-row-index=" + targetRow +
+                    "]/td[@field='currUnitFactorName']");
+        } else if (targetName.equals("价格")) {
+            byCell = By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody/tr[@datagrid-row-index=" + targetRow +
+                    "]/td[@field='realPrice']");
+        } else if (targetName.equals("单价")) {
+            byCell = By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody/tr[@datagrid-row-index=" + targetRow +
+                    "]/td[@field='currWholesale']");
+        } else if (targetName.equals("调整前价格")) {
+            byCell = By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody/tr[@datagrid-row-index=" + targetRow +
+                    "]/td[@field='origCostPrice']");
+        } else if (targetName.equals("调整后价格")) {
+            byCell = By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody/tr[@datagrid-row-index=" + targetRow +
+                    "]/td[@field='origCostPrice']");
+        } else if (targetName.equals("成本价")) {
+            byCell = By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody/tr[@datagrid-row-index=" + targetRow +
+                    "]/td[@field='costPrice']");
+        } else if (targetName.equals("库存数量")) {
+            byCell = By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody/tr[@datagrid-row-index=" + targetRow +
+                    "]/td[@field='stockQuantity']");
+        } else if (targetName.equals("当前库存数量")) {
+            byCell = By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody/tr[@datagrid-row-index=" + targetRow +
+                    "]/td[@field='origQuantity']");
+        } else {
+            byCell = null;
+        }
+        return ElementKeyword.getText(byCell);
     }
 
     /**
@@ -503,33 +546,6 @@ public class BillKeyword {
         BrowserKeyword.switchToDefaultFrameOrWindow();
         BrowserKeyword.switchToFrame(By.xpath(".//iframe[contains(@id,'/saas/erp/bill/')]"));
     }
-
-//    /**
-//     * 获取商品档案单元格定位(检查页面元素时使用)
-//     *
-//     * @param row         指定单元格行
-//     * @param targetField 单元格的Field，如goodsName/goodsId/barcode/currUnitName/unitFactorName/currUnitFactor/quantity
-//     *                    /origPrice/realPrice/discount/subAmount/stockQuantity/remark/opt
-//     * @return 指定单元格的定位
-//     */
-//    private static By getGoodsElementForCheck(int row, String targetField) {
-//        return By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody/tr[@datagrid-row-index=" + row +
-//                "]/td[@field='" + targetField + "']/div");
-//    }
-//
-//    /**
-//     * 账户类型标识，如[优惠金额/优惠后金额/现金/银行/其他/预收款]
-//     *
-//     * @param selectName 金额类型名称
-//     * @return 对应账户的定位方式
-//     */
-//    private static By getMoneyForCheck(String selectName) {
-//        if (selectName.equalsIgnoreCase("优惠金额") || selectName.equalsIgnoreCase("优惠后金额")) {
-//            return By.xpath(".//label[text()='" + selectName + "']/following-sibling::span/input[2]");
-//        } else {
-//            return By.xpath(".//ul[@id='amountBox']/li[text()='" + selectName + "']/span/input[2]");
-//        }
-//    }
 //
 //    private static int getRowsByBillNo(String billNo) {
 //        By byBillNo = By.xpath(".//div[@class='datagrid-view2']/div[2]//tbody//td[@field='saleBillNo']/div[text()='"

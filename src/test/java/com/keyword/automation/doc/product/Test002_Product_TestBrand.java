@@ -32,7 +32,6 @@ public class Test002_Product_TestBrand {
     @Before
     public void setUp() {
         LogUtils.info("--------------------测试预处理:登录系统--------------------");
-        String byFrame = ".//iframe[@id='erp/doc/brand/list']";
         // 登录系统
         if (LoginKeyword.loginSystem()) {
             LogUtils.info("登陆系统成功，当前登录用户为: [" + Constants.TEST_USERNAME + "].");
@@ -41,8 +40,6 @@ public class Test002_Product_TestBrand {
         }
         // 选择档案-商品相关-商品档案菜单
         MenuKeyword.selectMenu("档案", "品牌档案");
-        // 切换Frame
-        BrowserKeyword.switchToFrame(By.xpath(byFrame));
     }
 
     @Test

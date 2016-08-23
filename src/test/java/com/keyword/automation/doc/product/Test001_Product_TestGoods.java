@@ -49,7 +49,6 @@ public class Test001_Product_TestGoods {
         GoodsTypeKeyword.deleteGoodsType(firstGoodsType.getName());
         BrowserKeyword.switchToDefaultFrameOrWindow();
         MenuKeyword.selectMenu("档案", "品牌档案");
-        BrowserKeyword.switchToFrame(By.xpath(".//iframe[@id='erp/doc/brand/list']"));
         BrandKeyword.deleteBrand(brand.getName());
         BrowserKeyword.browserQuit();
     }
