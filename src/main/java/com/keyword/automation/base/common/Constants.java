@@ -44,10 +44,10 @@ public class Constants {
     /**
      * 测试环境登录用户名
      */
-    public static final String TEST_USERNAME = "13951684793";
+    public static final String TEST_USERNAME = "18010001001";
 
     /**
      * 测试环境登录用户密码
      */
-    public static final String TEST_PASSWORD = "123456qq";
+    public static final String TEST_PASSWORD = "aA111111";
 }
