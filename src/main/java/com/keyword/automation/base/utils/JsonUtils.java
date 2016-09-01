@@ -39,12 +39,12 @@ public class JsonUtils {
     }
 
     /**
-     * 将对象序列化成List数组
+     * 将对象序列化成List
      * before: Student{username='小明',sex='男',tel=['13999999991','02588888888'],Score{chinese=99,math=100}}
      * after: [小明, 男, ["13999999991","02588888888"], {"chinese":99,"math":100}]
      *
      * @param object 指定对象
-     * @return List数组
+     * @return List
      */
     public static List toListFromObject(Object object) {
         List<Object> list = new ArrayList<>();
@@ -61,6 +61,14 @@ public class JsonUtils {
         return list;
     }
 
+    /**
+     * 将JSON对象数组序列化List
+     * before: [{"username":"小明","sex":"男","tel":["13999999991","02588888888"],"score":{"chinese":99,"math":100}}]
+     * after: [{score={math=100, chinese=99}, sex=男, username=小明, tel=[13999999991, 02588888888]}]
+     *
+     * @param jsonArray JSON对象数组
+     * @return List
+     */
     public static List toListFromJson(JSONArray jsonArray) {
         List<Object> list = new ArrayList<>();
         for (Object obj : jsonArray) {
@@ -76,12 +84,28 @@ public class JsonUtils {
     }
 
 
+    /**
+     * 将JSON字符串序列化Map
+     * before: {"username":"小明","sex":"男","tel":["13999999991","02588888888"],"score":{"chinese":99,"math":100}}
+     * after: {score={math=100, chinese=99}, sex=男, username=小明, tel=[13999999991, 02588888888]}
+     *
+     * @param json JSON字符串
+     * @return Map
+     */
     public static Map<String, Object> toMapFromJson(String json) {
         JSONObject obj = JSONObject.fromObject(json);
         return toMapFromJson(obj);
     }
 
 
+    /**
+     * 将JSON对象序列化Map
+     * before: {"username":"小明","sex":"男","tel":["13999999991","02588888888"],"score":{"chinese":99,"math":100}}
+     * after: {score={math=100, chinese=99}, sex=男, username=小明, tel=[13999999991, 02588888888]}
+     *
+     * @param obj JSON对象
+     * @return Map
+     */
     public static Map<String, Object> toMapFromJson(JSONObject obj) {
         Set<?> set = obj.keySet();
         Map<String, Object> map = new HashMap<>(set.size());
@@ -94,7 +118,6 @@ public class JsonUtils {
             } else {
                 map.put(key.toString(), obj.get(key));
             }
-
         }
         return map;
     }
@@ -115,5 +138,9 @@ public class JsonUtils {
         JSONArray jsonArray1 = new JSONArray();
         jsonArray1.add(jsonObject);
         System.out.println(JsonUtils.toListFromJson(jsonArray1));
+
+        String jsonStr = "{\"username\":\"小明\",\"sex\":\"男\",\"tel\":[\"13999999991\",\"02588888888\"]," +
+                "\"score\":{\"chinese\":99,\"math\":100}}";
+        System.out.println(JsonUtils.toMapFromJson(jsonStr));
     }
 }
