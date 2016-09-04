@@ -160,7 +160,7 @@ public class JsonUtils {
         return JSONObject.toBean(jsonObject, clazz);
     }
 
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
 //        JSONObject jsonObject = new JSONObject();
 //        JSONObject subJSON = new JSONObject();
 //        JSONArray jsonArray = new JSONArray();
@@ -180,8 +180,8 @@ public class JsonUtils {
 //        String jsonStr = "{\"username\":\"小明\",\"sex\":\"男\",\"tel\":[\"13999999991\",\"02588888888\"]," +
 //                "\"score\":{\"chinese\":99,\"math\":100}}";
 //        System.out.println(JsonUtils.toMapFromJson(jsonStr));
-
-
+//
+//
 //        List<BillCell> billCellList = new ArrayList<>();
 //        BillHeader billHeader = new BillHeader("测试客户", null, "测试仓库", "刘振峰", null, false, "这是一个单据备注");
 //        BillCell billCellA_BASE = new BillCell("商品档案A", "瓶", "10", 8.80, 88.00, "这是商品A小包单位备注");
@@ -197,15 +197,15 @@ public class JsonUtils {
 //        String jsonString = JsonUtils.toJsonStringFromObject(billWhole);
 //        System.out.println(jsonString);
 
-//        String jsonString = "{\"billCellList\":[{\"currUnitName\":\"瓶\",\"goodsName\":\"商品档案A\",\"quantity\":\"10\"," +
-//                "\"realPrice\":8.8,\"remark\":\"这是商品A小包单位备注\",\"subAmount\":88},{\"currUnitName\":\"箱\"," +
-//                "\"goodsName\":\"商品档案A\",\"quantity\":\"10\",\"realPrice\":88.8,\"remark\":\"这是商品A大包单位备注\"," +
-//                "\"subAmount\":888},{\"currUnitName\":\"瓶\",\"goodsName\":\"商品档案B\",\"quantity\":\"10\"," +
-//                "\"realPrice\":9.9,\"remark\":\"这是商品B大包单位备注\",\"subAmount\":99}],\"billFooter\":{\"bank\":0," +
-//                "\"cash\":2.2,\"others\":0,\"preCharge\":0,\"prePay\":3.3}," +
-//                "\"billHeader\":{\"billRemark\":\"这是一个单据备注\",\"consumerName\":\"测试客户\",\"isBaseUnit\":false," +
-//                "\"supplierName\":\"\",\"warehouseName\":\"测试仓库\",\"workOperName\":\"刘振峰\"}}";
-//        Object object = JsonUtils.toBeanFromJsonString(jsonString, BillWhole.class);
-//        System.out.println(((BillWhole) object).getBillHeader().getWarehouseName());
-//    }
+        String jsonString = "{\"billCellList\":[{\"currUnitName\":\"瓶\",\"goodsName\":\"商品档案A\",\"quantity\":\"10\"," +
+                "\"realPrice\":8.8,\"remark\":\"这是商品A小包单位备注\",\"subAmount\":88},{\"currUnitName\":\"箱\"," +
+                "\"goodsName\":\"商品档案A\",\"quantity\":\"10\",\"realPrice\":88.8,\"remark\":\"这是商品A大包单位备注\"," +
+                "\"subAmount\":888},{\"currUnitName\":\"瓶\",\"goodsName\":\"商品档案B\",\"quantity\":\"10\"," +
+                "\"realPrice\":9.9,\"remark\":\"这是商品B大包单位备注\",\"subAmount\":99}],\"billFooter\":{\"bank\":0," +
+                "\"cash\":2.2,\"others\":0,\"preCharge\":0,\"prePay\":3.3}," +
+                "\"billHeader\":{\"billRemark\":\"这是一个单据备注\",\"consumerName\":\"测试客户\",\"isBaseUnit\":false," +
+                "\"supplierName\":\"\",\"warehouseName\":\"测试仓库\",\"workOperName\":\"刘振峰\"}}";
+        Object object = JsonUtils.toBeanFromJsonString(jsonString, BillWhole.class);
+        System.out.println(((BillWhole) object).getBillHeader().getWarehouseName());
+    }
 }

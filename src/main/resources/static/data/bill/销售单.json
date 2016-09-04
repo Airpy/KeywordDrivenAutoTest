@@ -2,45 +2,47 @@
   "addSaleOrder_001": {
     "billWhole": {
       "billHeader": {
-        "billRemark": "这是一个单据备注",
         "consumerName": "测试客户",
-        "isBaseUnit": false,
-        "supplierName": "",
+        "supplierName": null,
         "warehouseName": "测试仓库",
-        "workOperName": "刘振峰"
+        "workOperName": "刘振峰",
+        "workTime": null,
+        "isBaseUnit": false,
+        "billRemark": "这是一个单据备注"
       },
       "billCellList": [
         {
-          "currUnitName": "瓶",
           "goodsName": "商品档案A",
+          "currUnitName": "瓶",
           "quantity": "10",
           "realPrice": 8.8,
-          "remark": "这是商品A小包单位备注",
-          "subAmount": 88
+          "subAmount": 88,
+          "remark": "这是商品A小包单位备注"
         },
         {
-          "currUnitName": "箱",
           "goodsName": "商品档案A",
+          "currUnitName": "箱",
           "quantity": "10",
           "realPrice": 88.8,
-          "remark": "这是商品A大包单位备注",
-          "subAmount": 888
+          "subAmount": 888,
+          "remark": "这是商品A大包单位备注"
         },
         {
-          "currUnitName": "瓶",
           "goodsName": "商品档案B",
+          "currUnitName": "瓶",
           "quantity": "10",
           "realPrice": 9.9,
-          "remark": "这是商品B大包单位备注",
-          "subAmount": 99
+          "subAmount": 99,
+          "remark": "这是商品B大包单位备注"
         }
       ],
       "billFooter": {
-        "bank": 0,
+        "discountAmount": 1.10,
         "cash": 2.2,
-        "others": 0,
+        "bank": 0,
+        "prePay": 3.3,
         "preCharge": 0,
-        "prePay": 3.3
+        "others": 0
       }
     },
     "result": {
@@ -51,50 +53,52 @@
   "addSaleOrder_002": {
     "billWhole": {
       "billHeader": {
-        "billRemark": "这是一个单据备注",
         "consumerName": "测试客户",
-        "isBaseUnit": false,
-        "supplierName": "",
+        "supplierName": null,
         "warehouseName": "测试仓库",
-        "workOperName": "刘振峰"
+        "workOperName": "刘振峰",
+        "workTime": null,
+        "isBaseUnit": false,
+        "billRemark": "这是一个单据备注"
       },
       "billCellList": [
         {
-          "currUnitName": "瓶",
           "goodsName": "商品档案A",
+          "currUnitName": "瓶",
           "quantity": "10",
           "realPrice": 8.8,
-          "remark": "这是商品A小包单位备注",
-          "subAmount": 88
+          "subAmount": 88,
+          "remark": "这是商品A小包单位备注"
         },
         {
-          "currUnitName": "箱",
           "goodsName": "商品档案A",
+          "currUnitName": "箱",
           "quantity": "10",
           "realPrice": 88.8,
-          "remark": "这是商品A大包单位备注",
-          "subAmount": 888
+          "subAmount": 888,
+          "remark": "这是商品A大包单位备注"
         },
         {
-          "currUnitName": "瓶",
           "goodsName": "商品档案B",
+          "currUnitName": "瓶",
           "quantity": "10",
           "realPrice": 9.9,
-          "remark": "这是商品B大包单位备注",
-          "subAmount": 99
+          "subAmount": 99,
+          "remark": "这是商品B大包单位备注"
         }
       ],
       "billFooter": {
-        "bank": 0,
+        "discountAmount": 1.10,
         "cash": 2.2,
-        "others": 0,
+        "bank": 0,
+        "prePay": 3.3,
         "preCharge": 0,
-        "prePay": 3.3
+        "others": 0
       }
     },
     "result": {
-      "status": "false",
-      "message": "这是失败的消息体"
+      "status": "success",
+      "message": "这是成功的消息体"
     }
   }
 }
