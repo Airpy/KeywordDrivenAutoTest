@@ -1,0 +1,100 @@
+{
+  "addSaleOrder_001": {
+    "billWhole": {
+      "billHeader": {
+        "billRemark": "这是一个单据备注",
+        "consumerName": "测试客户",
+        "isBaseUnit": false,
+        "supplierName": "",
+        "warehouseName": "测试仓库",
+        "workOperName": "刘振峰"
+      },
+      "billCellList": [
+        {
+          "currUnitName": "瓶",
+          "goodsName": "商品档案A",
+          "quantity": "10",
+          "realPrice": 8.8,
+          "remark": "这是商品A小包单位备注",
+          "subAmount": 88
+        },
+        {
+          "currUnitName": "箱",
+          "goodsName": "商品档案A",
+          "quantity": "10",
+          "realPrice": 88.8,
+          "remark": "这是商品A大包单位备注",
+          "subAmount": 888
+        },
+        {
+          "currUnitName": "瓶",
+          "goodsName": "商品档案B",
+          "quantity": "10",
+          "realPrice": 9.9,
+          "remark": "这是商品B大包单位备注",
+          "subAmount": 99
+        }
+      ],
+      "billFooter": {
+        "bank": 0,
+        "cash": 2.2,
+        "others": 0,
+        "preCharge": 0,
+        "prePay": 3.3
+      }
+    },
+    "result": {
+      "status": "success",
+      "message": "这是成功的消息体"
+    }
+  },
+  "addSaleOrder_002": {
+    "billWhole": {
+      "billHeader": {
+        "billRemark": "这是一个单据备注",
+        "consumerName": "测试客户",
+        "isBaseUnit": false,
+        "supplierName": "",
+        "warehouseName": "测试仓库",
+        "workOperName": "刘振峰"
+      },
+      "billCellList": [
+        {
+          "currUnitName": "瓶",
+          "goodsName": "商品档案A",
+          "quantity": "10",
+          "realPrice": 8.8,
+          "remark": "这是商品A小包单位备注",
+          "subAmount": 88
+        },
+        {
+          "currUnitName": "箱",
+          "goodsName": "商品档案A",
+          "quantity": "10",
+          "realPrice": 88.8,
+          "remark": "这是商品A大包单位备注",
+          "subAmount": 888
+        },
+        {
+          "currUnitName": "瓶",
+          "goodsName": "商品档案B",
+          "quantity": "10",
+          "realPrice": 9.9,
+          "remark": "这是商品B大包单位备注",
+          "subAmount": 99
+        }
+      ],
+      "billFooter": {
+        "bank": 0,
+        "cash": 2.2,
+        "others": 0,
+        "preCharge": 0,
+        "prePay": 3.3
+      }
+    },
+    "result": {
+      "status": "false",
+      "message": "这是失败的消息体"
+    }
+  }
+}

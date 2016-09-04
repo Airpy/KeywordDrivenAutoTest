@@ -50,4 +50,9 @@ public class Constants {
      * 测试环境登录用户密码
      */
     public static final String TEST_PASSWORD = "aA111111";
+
+    /**
+     * 测试数据JSON路径
+     */
+    public static final String JSON_FILE_PATH = "/src/main/resources/static/data/";
 }
