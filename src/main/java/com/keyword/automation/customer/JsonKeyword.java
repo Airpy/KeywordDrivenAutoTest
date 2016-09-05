@@ -3,10 +3,15 @@ package com.keyword.automation.customer;
 import com.alibaba.fastjson.JSONObject;
 import com.keyword.automation.base.common.Constants;
 import com.keyword.automation.base.utils.JSONUtils;
+import com.keyword.automation.bean.BillWhole;
+import com.keyword.automation.database.domain.Goods;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 自定义Json操作关键字
@@ -17,10 +22,31 @@ public class JsonKeyword {
     private JsonKeyword() {
     }
 
-    public static Object initData(String jsonFilePath, String testCaseSeq) {
+    public static Map<String, Map<String, Object>> initData(String jsonFilePath) {
+        Map<String, Map<String, Object>> map = new HashMap<>();
+        Map<String, Object> dataMap = new HashMap<>();
         String jsonString = readJsonFile(jsonFilePath);
-        JSONObject jsonObject = JSONUtils.toJSONObjectFromJSONString(jsonString).getJSONObject(testCaseSeq);
-
+        JSONObject jsonObject = JSONUtils.toJSONObjectFromJSONString(jsonString);
+        Set<String> keys = jsonObject.keySet();
+        for (String key : keys) {
+            JSONObject testData = (JSONObject) jsonObject.get(key);
+            Set<String> dataKeys = testData.keySet();
+            for (String dataKey : dataKeys) {
+                if (!dataKey.equalsIgnoreCase("result")) {
+                    if (dataKey.equalsIgnoreCase("BillWhole")) {
+                        dataMap.put(dataKey, JSONUtils.toBeanFromJSONString(testData.get(dataKey).toString(),
+                                BillWhole.class));
+                    } else {
+                        dataMap.put(dataKey, JSONUtils.toBeanFromJSONString(testData.get(dataKey).toString(), Goods
+                                .class));
+                    }
+                } else {
+                    dataMap.put(dataKey, testData.get(dataKey));
+                }
+            }
+            map.put(key, dataMap);
+        }
+        return map;
     }
 
     /**
@@ -102,6 +128,8 @@ public class JsonKeyword {
 //                "        \"others\": 0\n" +
 //                "      }\n" +
 //                "    }";
-
+        Map<String, Map<String, Object>> map = JsonKeyword.initData("bill/销售单.json");
+        BillWhole billWhole = (BillWhole) map.get("addSaleOrder_002").get("billWhole");
+        System.out.println(billWhole.getBillCellList().get(0).getGoodsName());
     }
 }
