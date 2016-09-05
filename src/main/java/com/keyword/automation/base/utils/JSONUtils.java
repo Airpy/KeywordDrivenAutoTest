@@ -8,7 +8,6 @@ import com.alibaba.fastjson.TypeReference;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
