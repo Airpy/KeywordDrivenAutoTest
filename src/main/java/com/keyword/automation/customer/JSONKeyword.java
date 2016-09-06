@@ -40,11 +40,11 @@ public class JSONKeyword {
             for (String dataKey : dataKeys) {
                 if (!dataKey.equalsIgnoreCase("result")) {
                     if (dataKey.equalsIgnoreCase("BillWhole")) {
-                        dataMap.put(dataKey, JSONUtils.toBeanFromJSONString(testData.get(dataKey).toString(),
-                                BillWhole.class));
+                        dataMap.put(dataKey, JSONUtils.toBeanFromJSONString(JSONUtils.toJSONString(testData.get
+                                (dataKey)), BillWhole.class));
                     } else {
-                        dataMap.put(dataKey, JSONUtils.toBeanFromJSONString(testData.get(dataKey).toString(), Goods
-                                .class));
+                        dataMap.put(dataKey, JSONUtils.toBeanFromJSONString(JSONUtils.toJSONString(testData.get
+                                (dataKey)), Goods.class));
                     }
                 } else {
                     dataMap.put(dataKey, testData.get(dataKey));

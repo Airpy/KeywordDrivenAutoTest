@@ -150,15 +150,15 @@ public class JSONUtils {
     }
 
     /**
-     * 将JavaBean格式化成JSON字符串
+     * 将对象(JSONArray对象、JSONObject对象、JavaBean对象)格式化成JSON字符串
      *
-     * @param javaBean JavaBean
+     * @param object JSONArray对象、JSONObject对象、JavaBean对象
      * @return JSON字符串
      */
-    public static String toJSONString(Object javaBean) {
+    public static String toJSONString(Object object) {
         String jsonString = null;
         try {
-            jsonString = JSON.toJSONString(javaBean);
+            jsonString = JSON.toJSONString(object);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -166,16 +166,16 @@ public class JSONUtils {
     }
 
     /**
-     * 将JavaBean格式化成JSON字符串(带格式化)
+     * 将对象(JSONArray对象、JSONObject对象、JavaBean对象)格式化成JSON字符串(带格式化)
      *
-     * @param javaBean     JavaBean
+     * @param object       JSONArray对象、JSONObject对象、JavaBean对象
      * @param prettyFormat 是否格式化，格式化则为True，否则为False
      * @return JSON字符串
      */
-    public static String toJSONString(Object javaBean, boolean prettyFormat) {
+    public static String toJSONString(Object object, boolean prettyFormat) {
         String jsonString = null;
         try {
-            jsonString = JSON.toJSONString(javaBean, prettyFormat);
+            jsonString = JSON.toJSONString(object, prettyFormat);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -185,16 +185,16 @@ public class JSONUtils {
     /**
      * 将JavaBean格式化成JSONObject对象或JSONArray对象
      *
-     * @param javaBean JavaBean
+     * @param javaObject JavaBean
      * @return JSONObject或JSONArray
      */
-    public static Object toJSON(Object javaBean) {
-        Object javaObject = null;
+    public static Object toJSON(Object javaObject) {
+        Object object = null;
         try {
-            javaObject = JSON.toJSON(javaBean);
+            object = JSON.toJSON(javaObject);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return javaObject;
+        return object;
     }
 }
