@@ -148,4 +148,53 @@ public class JSONUtils {
         }
         return t;
     }
+
+    /**
+     * 将JavaBean格式化成JSON字符串
+     *
+     * @param javaBean JavaBean
+     * @return JSON字符串
+     */
+    public static String toJSONString(Object javaBean) {
+        String jsonString = null;
+        try {
+            jsonString = JSON.toJSONString(javaBean);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonString;
+    }
+
+    /**
+     * 将JavaBean格式化成JSON字符串(带格式化)
+     *
+     * @param javaBean     JavaBean
+     * @param prettyFormat 是否格式化，格式化则为True，否则为False
+     * @return JSON字符串
+     */
+    public static String toJSONString(Object javaBean, boolean prettyFormat) {
+        String jsonString = null;
+        try {
+            jsonString = JSON.toJSONString(javaBean, prettyFormat);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonString;
+    }
+
+    /**
+     * 将JavaBean格式化成JSONObject对象或JSONArray对象
+     *
+     * @param javaBean JavaBean
+     * @return JSONObject或JSONArray
+     */
+    public static Object toJSON(Object javaBean) {
+        Object javaObject = null;
+        try {
+            javaObject = JSON.toJSON(javaBean);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return javaObject;
+    }
 }
